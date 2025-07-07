@@ -60,17 +60,26 @@ public class Board {
     }
 
     public void drawBoard(){
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board.length; j++){
-                if(board[j][i].piece != null){
-                    System.out.print("\t"+board[j][i].piece.getName());
+        final char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        for (int i = 0; i < board.length+1; i++){
+            for (int j = 0; j < board.length+1; j++){
+                if(j == 0 && i != 0){
+                    System.out.print("\t"+(8-i+1));
+                }else if (i == 0 && j != 0) {
+                    System.out.print("\t"+(char)('a'+j-1));
                 }else{
-                    //For the future
-                    if(board[j][i].color == 0){
-                        System.out.print("\t.");
-                    }else {
-                        System.out.print("\t.");
-                    }
+                    if (i != 0 && j != 0) {
+                        if(board[j-1][i-1].piece != null){
+                            System.out.print("\t"+board[j-1][i-1].piece.getName());
+                        }else{
+                            //For the future
+                            if(board[j-1][i-1].color == 0){
+                                System.out.print("\t.");
+                            }else {
+                                System.out.print("\t.");
+                            }
+                        }
+                    }else System.out.print("\t");
                 }
             }
             System.out.println();
