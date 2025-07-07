@@ -4,23 +4,26 @@ public abstract class Piece {
     protected Position position;
     protected int color; //0 = white, 1 = black
     protected String name;
-    protected int[] possibleDirs;
+    protected Position[] possibleDirs;
     protected boolean movedX = false;
     protected boolean movedY = false;
-    protected int direction = this.color == 0?-1:1;
+    //todo
+    protected int direction = this.color == 0 ? -1:1;
 
     public Piece(Position position, int color) {
         this.position = position;
         this.color = color;
     }
 
-    public boolean validMove(int x, int y){
+    public boolean validMove(Position pos){
+        int x = pos.getX();
+        int y = pos.getY();
         return (x<8 && x>=0) && (y>=0 && y<8);
     }
 
-    public abstract List<Position> getPossibleMoves(int x, int y);
-    public List<Position> getPossibleKills(int x, int y){
-        return getPossibleMoves(x, y);
+    public abstract List<Position> getPossibleMoves(Position pos);
+    public List<Position> getPossibleKills(Position pos){
+        return getPossibleMoves(pos);
     };
 
     public Position getPosition() {

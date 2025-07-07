@@ -3,30 +3,32 @@ import java.util.List;
 
 public class Pawn extends Piece {
     private boolean hasMoved = false;
-    final private int[][] possibleKillDirs ={   {-1, -1},
-                                                { 1, -1},
-                                            };
+    final private Position[] possibleKillDirs = {
+            new Position(-1, -1),
+            new Position( 1, -1)
+    };
 
     public Pawn(Position position, int color){
         super(position,color);
         this.name = super.getDrawName("♙");
+        this.possibleDirs = new Position[]{
+                new Position(0, 1*this.direction),
+                new Position(0, 2*this.direction)};
     }
 
     @Override
-    public List<Position> getPossibleMoves(int x, int y){
+    public List<Position> getPossibleMoves(Position pos){
         List<Position> possibleMoves = new ArrayList<Position>();
         if (hasMoved &&
-            super.validMove(x,(y+1)*this.direction))
+            super.validMove(pos.sumPosition(possibleDirs[0]))
+        )
         {
-            possibleMoves.add(new Position(x, (y+1)*this.direction));
+            possibleMoves.add(pos.sumPosition(possibleDirs[0]));
         }
         else if (!hasMoved
-                && super.validMove(x,(y+2)*this.direction))
+                && super.validMove(pos.sumPosition(possibleDirs[1])))
         {
-            possibleMoves.add(new Position(x, (y+2)*this.direction));
-        }
-        else{
-            throw new IllegalArgumentException("Invalid move, x="+x+", y="+y);
+            possibleMoves.add(pos.sumPosition(possibleDirs[1]));
         }
 
         return  possibleMoves;

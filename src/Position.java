@@ -23,6 +23,14 @@ public class Position {
         this.x = x;
     }
 
+    public Position sumPosition(Position pos){
+        int x = 0;
+        int y = 0;
+        x = this.x + pos.getX();
+        y = this.y + pos.getY();
+        return new Position(x,y);
+    }
+
     @Override
     public String toString() {
         return "(" +
