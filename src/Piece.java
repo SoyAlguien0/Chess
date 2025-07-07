@@ -7,7 +7,6 @@ public abstract class Piece {
     protected Position[] possibleDirs;
     protected boolean movedX = false;
     protected boolean movedY = false;
-    //todo
     protected int direction = this.color == 0 ? -1:1;
 
     public Piece(Position position, int color) {
@@ -63,7 +62,7 @@ public abstract class Piece {
     }
 
     public String getDrawName(String name) {
-        return (this.color == 0 ? "♙" : "♟");
+        return (this.color == 0 ? "♟" : "♙");
     }
 
     public void setName(String name) {
