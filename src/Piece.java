@@ -20,9 +20,10 @@ public abstract class Piece {
         return (x<8 && x>=0) && (y>=0 && y<8);
     }
 
-    public abstract List<Position> getPossibleMoves(Position pos);
-    public List<Position> getPossibleKills(Position pos){
-        return getPossibleMoves(pos);
+    public abstract List<Position> getPossibleMoves();
+
+    public List<Position> getPossibleKills(){
+        return getPossibleMoves();
     };
 
     public Position getPosition() {

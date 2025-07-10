@@ -13,11 +13,13 @@ public class Pawn extends Piece {
         this.name = super.getDrawName("♙");
         this.possibleDirs = new Position[]{
                 new Position(0, 1*this.direction),
-                new Position(0, 2*this.direction)};
+                new Position(0, 2*this.direction)
+        };
     }
 
     @Override
-    public List<Position> getPossibleMoves(Position pos){
+    public List<Position> getPossibleMoves(){
+        Position pos = this.position;
         List<Position> possibleMoves = new ArrayList<Position>();
         if (hasMoved &&
             super.validMove(pos.sumPosition(possibleDirs[0]))
@@ -31,6 +33,20 @@ public class Pawn extends Piece {
             possibleMoves.add(pos.sumPosition(possibleDirs[1]));
         }
 
+        return  possibleMoves;
+    }
+
+    @Override
+    public List<Position> getPossibleKills(){
+        Position pos = this.position;
+        List<Position> possibleMoves = new ArrayList<Position>();
+        for (int i = 0; i < possibleKillDirs.length; i++){
+            if (hasMoved &&
+                    super.validMove(pos.sumPosition(possibleDirs[i]))
+            ) {
+                possibleMoves.add(pos.sumPosition(possibleDirs[i]));
+            }
+        }
         return  possibleMoves;
     }
 
