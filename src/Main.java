@@ -2,8 +2,6 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Board board = new Board();
-        board.initBoard();
-        board.drawBoard();
+        Game game = new Game(2);
     }
 }

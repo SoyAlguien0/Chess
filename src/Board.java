@@ -5,7 +5,7 @@ public class Board {
     Box[][] board = new Box[8][8];
     List<Piece> pieces = new ArrayList<Piece>();
 
-    public void initPieces() {
+    private void initPieces() {
         // Initializing one by one for better debugging
         // White pawns
         pieces.add(new Pawn(new Position(0, 1), 0));
@@ -31,9 +31,10 @@ public class Board {
         initBoxes();
         initPieces();
         createBoard();
+        drawBoard();
     }
 
-    public void initBoxes(){
+    private void initBoxes(){
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 if((i+j) % 2 == 0){
@@ -45,7 +46,7 @@ public class Board {
         }
     }
 
-    public void createBoard(){
+    private void createBoard(){
         //Assign every box it's piece
         setPieces();
     }
@@ -61,8 +62,9 @@ public class Board {
 
     public void drawBoard(){
         final char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
-        for (int i = 0; i < board.length+1; i++){
-            for (int j = 0; j < board.length+1; j++){
+        int drawBoardSize = board.length + 1; //board size + coordinates size
+        for (int i = 0; i < drawBoardSize; i++){
+            for (int j = 0; j < drawBoardSize; j++){
                 if(j == 0 && i != 0){
                     System.out.print("\t"+(8-i+1));
                 }else if (i == 0 && j != 0) {
@@ -84,5 +86,15 @@ public class Board {
             }
             System.out.println();
         }
+    }
+
+    public ArrayList<Piece> getAvailablePieces(int color){
+        ArrayList<Piece> AvailablePieces= new ArrayList<>();
+        for(Piece p : pieces){
+            if (p.getColor() == color && !p.getPossibleMoves().isEmpty()){
+                AvailablePieces.add(p);
+            }
+        }
+        return AvailablePieces;
     }
 }

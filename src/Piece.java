@@ -7,7 +7,7 @@ public abstract class Piece {
     protected Position[] possibleDirs;
     protected boolean movedX = false;
     protected boolean movedY = false;
-    protected int direction = this.color == 0 ? -1:1;
+    protected int direction ;
 
     public Piece(Position position, int color) {
         this.position = position;
