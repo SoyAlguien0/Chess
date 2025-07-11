@@ -19,7 +19,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public List<Position> getPossibleMoves(){
+    public List<Position> getPossibleMoves(boolean checking){
         Position pos = this.position;
         List<Position> possibleMoves = new ArrayList<Position>();
         if (hasMoved &&
@@ -27,18 +27,25 @@ public class Pawn extends Piece {
         )
         {
             possibleMoves.add(pos.sumPosition(possibleDirs[0]));
+            if(checking){
+                return possibleMoves;
+            }
         }
         else if (!hasMoved
                 && super.validMove(pos.sumPosition(possibleDirs[1])))
         {
             possibleMoves.add(pos.sumPosition(possibleDirs[1]));
+            this.hasMoved = true;
+            if(checking){
+                return possibleMoves;
+            }
         }
 
         return  possibleMoves;
     }
 
     @Override
-    public List<Position> getPossibleKills(){
+    public List<Position> getPossibleKills(boolean checking){
         Position pos = this.position;
         List<Position> possibleMoves = new ArrayList<Position>();
         for (int i = 0; i < possibleKillDirs.length; i++){
@@ -46,6 +53,9 @@ public class Pawn extends Piece {
                     super.validMove(pos.sumPosition(possibleDirs[i]))
             ) {
                 possibleMoves.add(pos.sumPosition(possibleDirs[i]));
+                if(checking){
+                    return possibleMoves;
+                }
             }
         }
         return  possibleMoves;

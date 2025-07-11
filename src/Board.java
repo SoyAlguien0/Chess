@@ -89,9 +89,10 @@ public class Board {
     }
 
     public ArrayList<Piece> getAvailablePieces(int color){
+        boolean checking = true;
         ArrayList<Piece> AvailablePieces= new ArrayList<>();
         for(Piece p : pieces){
-            if (p.getColor() == color && !p.getPossibleMoves().isEmpty()){
+            if (p.getColor() == color && !p.getPossibleMoves(checking).isEmpty()){
                 AvailablePieces.add(p);
             }
         }
