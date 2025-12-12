@@ -8,7 +8,7 @@ public class Game {
     public Game(int numPlayers) {
         players = new Player[numPlayers];
         for (int i = 0; i < players.length; i++) {
-            players[i] = new Player(i, game);
+            players[i] = new Player(i);
         }
         initGame();
     }
@@ -27,9 +27,13 @@ public class Game {
                     System.out.println("Player "+(i+1)+" turn.");
 
                     //show available pieces
-                    ArrayList<Piece> availablePieces = currentPlayer.getAvailablePieces();
+                    ArrayList<Piece> availablePieces = getAvailablePieces(currentPlayer);
                     showAvailablePieces(availablePieces);
-                    Piece chosenPiece = currentPlayer.choosePiece(availablePieces);
+                    int playerInput = -1;
+                    while (!validChose(new int[]{0, availablePieces.size()-1},playerInput)){
+                        playerInput = currentPlayer.choosePiece(availablePieces);
+                    }
+                    Piece chosenPiece = availablePieces.get(playerInput);
 
                     //show possible moves from a specific piece
                     boolean checking = true;
@@ -38,24 +42,43 @@ public class Game {
 
                     Position chosenPosition = null;
                     if (!possibleMoves.isEmpty() && !possibleKills.isEmpty()) {
-                        System.out.println("1. Kills\n" + //player
-                                "2. moves ");
-                        int chosenPlay = currentPlayer.choosePlay();
+                        int chosenPlay = -1;
+                        while (!validChose(new int[]{1, 2},chosenPlay)){
+                            System.out.println("1. Kills\n" +
+                                    "2. moves ");
+                            chosenPlay = currentPlayer.choosePlay();
+                        }
                         if (chosenPlay == 1){
-                            showPossibleMoves(possibleKills);
-                            chosenPosition = currentPlayer.choosePosition(possibleKills);
+                            playerInput = -1;
+                            while (!validChose(new int[]{0, possibleMoves.size()-1},playerInput)){
+                                showPossibleMoves(possibleKills);
+                                playerInput = currentPlayer.choosePosition(possibleKills);
+                            }
+                            chosenPosition = possibleKills.get(playerInput);
                         }else if(chosenPlay == 2) {
-                            showPossibleMoves(possibleMoves);
-                            chosenPosition = currentPlayer.choosePosition(possibleMoves);
+                            playerInput = -1;
+                            while (!validChose(new int[]{0, possibleMoves.size()-1},playerInput)){
+                                showPossibleMoves(possibleMoves);
+                                playerInput = currentPlayer.choosePosition(possibleMoves);
+                            }
+                            chosenPosition = possibleMoves.get(playerInput);
                         }
                     }
                     else if (!possibleMoves.isEmpty()){
-                        showPossibleMoves(possibleMoves);
-                        chosenPosition = currentPlayer.choosePosition(possibleMoves);
+                        playerInput = -1;
+                        while (!validChose(new int[]{0, possibleMoves.size()-1},playerInput)){
+                            showPossibleMoves(possibleMoves);
+                            playerInput = currentPlayer.choosePosition(possibleMoves);
+                        }
+                        chosenPosition = possibleMoves.get(playerInput);
                     }
                     else if (!possibleKills.isEmpty()){
-                        showPossibleMoves(possibleKills);
-                        chosenPosition = currentPlayer.choosePosition(possibleKills);
+                        playerInput = -1;
+                        while (!validChose(new int[]{0, possibleMoves.size()-1},playerInput)){
+                            showPossibleMoves(possibleKills);
+                            playerInput = currentPlayer.choosePosition(possibleKills);
+                        }
+                        chosenPosition = possibleKills.get(playerInput);
                     }
 
                     //set the piece to a chosen position
@@ -82,5 +105,13 @@ public class Game {
     public void setPiece(Piece chosenPiece, Position chosenPosition){
         game.setPiece(chosenPiece ,chosenPosition);
         game.drawBoard();
+    }
+
+    public boolean validChose(int[] limits, int chose){
+        return chose >= limits[0] && chose <= limits[1];
+    }
+
+    public ArrayList<Piece> getAvailablePieces(Player player){
+        return game.getAvailablePieces(player.getColor());
     }
 }
