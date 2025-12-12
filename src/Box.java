@@ -1,6 +1,6 @@
 public class Box {
-    Piece piece;
-    int color;
+    private Piece piece;
+    private int color;
 
     public Box(Piece piece, int color){
         this.piece = piece;
