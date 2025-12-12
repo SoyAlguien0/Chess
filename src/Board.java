@@ -1,9 +1,8 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Board {
-    Box[][] board = new Box[8][8];
-    List<Piece> pieces = new ArrayList<Piece>();
+    private Box[][] board = new Box[8][8];
+    private ArrayList<Piece> pieces = new ArrayList<Piece>();
 
     private void initPieces() {
         // Initializing one by one for better debugging
@@ -30,7 +29,7 @@ public class Board {
     public void initBoard(){
         initBoxes();
         initPieces();
-        createBoard();
+        setPieces();
         drawBoard();
     }
 
@@ -46,23 +45,40 @@ public class Board {
         }
     }
 
-    private void createBoard(){
-        //Assign every box it's piece
+    public void updateBoard(){
         setPieces();
+        drawBoard();
     }
 
     public void setPieces(){
+        //Assign every box it's piece
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board.length; j++){
+                board[j][i].setPiece(null);
+            }
+        }
+        // j = x, i = y
         for(Piece p : pieces){
-            // j = x, i = y
             int pieceX = p.getPosition().getX();
             int pieceY = p.getPosition().getY();
             board[pieceX][pieceY].setPiece(p);
         }
     }
 
+    public void setPiece(Piece piece, Position position){
+        int newX = position.getX();
+        int newY = position.getY();
+
+        piece.setPosition(position);
+        board[newX][newY].setPiece(piece);
+        piece.setHasMoved(true);
+
+        setPieces();
+    }
+
     public void drawBoard(){
         final char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
-        int drawBoardSize = board.length + 1; //board size + coordinates size
+        int drawBoardSize = board.length + 1; //board + coordinates
         for (int i = 0; i < drawBoardSize; i++){
             for (int j = 0; j < drawBoardSize; j++){
                 if(j == 0 && i != 0){
@@ -71,11 +87,11 @@ public class Board {
                     System.out.print("\t"+(char)('a'+j-1));
                 }else{
                     if (i != 0 && j != 0) {
-                        if(board[j-1][i-1].piece != null){
-                            System.out.print("\t"+board[j-1][i-1].piece.getName());
+                        if(board[j-1][i-1].getPiece() != null){
+                            System.out.print("\t"+board[j-1][i-1].getPiece().getName());
                         }else{
                             //For the future
-                            if(board[j-1][i-1].color == 0){
+                            if(board[j-1][i-1].getColor() == 0){
                                 System.out.print("\t.");
                             }else {
                                 System.out.print("\t.");
@@ -88,11 +104,11 @@ public class Board {
         }
     }
 
-    public ArrayList<Piece> getAvailablePieces(int color){
+    public ArrayList<Piece> getAvailablePieces(int playerColor){
         boolean checking = true;
         ArrayList<Piece> AvailablePieces= new ArrayList<>();
         for(Piece p : pieces){
-            if (p.getColor() == color && !p.getPossibleMoves(checking).isEmpty()){
+            if (p.getColor() == playerColor && (!p.getPossibleMoves(checking).isEmpty() || !p.getPossibleKills(checking).isEmpty())){
                 AvailablePieces.add(p);
             }
         }
