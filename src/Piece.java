@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.ArrayList;
 
 public abstract class Piece {
     protected Position position;
@@ -8,6 +8,7 @@ public abstract class Piece {
     protected boolean movedX = false;
     protected boolean movedY = false;
     protected int direction ;
+    protected boolean hasMoved = false;
 
     public Piece(Position position, int color) {
         this.position = position;
@@ -20,9 +21,9 @@ public abstract class Piece {
         return (x<8 && x>=0) && (y>=0 && y<8);
     }
 
-    public abstract List<Position> getPossibleMoves(boolean checking);
+    public abstract ArrayList<Position> getPossibleMoves(boolean checking);
 
-    public List<Position> getPossibleKills(boolean checking){
+    public ArrayList<Position> getPossibleKills(boolean checking){
         return getPossibleMoves(checking);
     };
 
@@ -64,6 +65,14 @@ public abstract class Piece {
 
     public String getDrawName(String name) {
         return (this.color == 0 ? "♟" : "♙");
+    }
+
+    public boolean isHasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 
     public void setName(String name) {
