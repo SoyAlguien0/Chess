@@ -5,6 +5,11 @@ import java.util.ArrayList;
 public class Board {
     private Box[][] board = new Box[8][8];
     private ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private boolean debugMode = false;
+
+    public Board(boolean debugMode){
+        this.debugMode = debugMode;
+    }
 
     private void initPieces() {
         // Initializing one by one for better debugging

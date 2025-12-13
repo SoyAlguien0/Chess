@@ -7,7 +7,8 @@ import java.util.ArrayList;
 public class Game {
     private int totalMovements;
     private Player[] players;
-    Board game = new Board();
+    private final boolean debugMode = true;
+    Board game = new Board(debugMode);
 
     public Game(int numPlayers) {
         players = new Player[numPlayers];
