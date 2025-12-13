@@ -94,6 +94,10 @@ public class Game {
     }
 
     public void showPossibleMoves(ArrayList<Position> possibleMoves){
+        if (debugMode){
+            game.drawTrail(possibleMoves);
+        }
+        game.drawBoard();
         for (int i = 0; i < possibleMoves.size(); i++) {
             Position p = possibleMoves.get(i);
             System.out.println((i+1)+". "+p);
