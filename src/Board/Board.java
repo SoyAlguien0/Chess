@@ -36,9 +36,7 @@ public class Board {
     public void initBoard(){
         initBoxes();
         initPieces();
-        setPieces();
-        setDraws();
-        drawBoard();
+        updateBoard(null);
     }
 
     private void initBoxes(){
@@ -56,6 +54,7 @@ public class Board {
     public void updateBoard(){
         setPieces();
         setDraws();
+        drawTrail(moves);
         drawBoard();
     }
 

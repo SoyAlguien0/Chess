@@ -95,9 +95,11 @@ public class Game {
 
     public void showPossibleMoves(ArrayList<Position> possibleMoves){
         if (debugMode){
-            game.drawTrail(possibleMoves);
+            game.updateBoard(possibleMoves);
+        }else{
+            game.updateBoard(null);
         }
-        game.drawBoard();
+
         for (int i = 0; i < possibleMoves.size(); i++) {
             Position p = possibleMoves.get(i);
             System.out.println((i+1)+". "+p);
@@ -113,7 +115,7 @@ public class Game {
 
     public void setPiece(Piece chosenPiece, Position chosenPosition){
         game.setPiece(chosenPiece ,chosenPosition);
-        game.drawBoard();
+        game.updateBoard(null);
     }
 
     public boolean validChose(int[] limits, int chose){
