@@ -1,4 +1,7 @@
+package Pieces;
+
 import java.util.ArrayList;
+import Board.Position;
 
 public abstract class Piece {
     protected Position position;

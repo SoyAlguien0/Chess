@@ -1,3 +1,7 @@
+package Board;
+
+import Pieces.Piece;
+
 public class Box {
     private Piece piece;
     private int color;

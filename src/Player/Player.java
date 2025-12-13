@@ -1,3 +1,8 @@
+package Player;
+
+import Board.Position;
+import Pieces.Piece;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

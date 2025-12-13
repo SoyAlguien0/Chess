@@ -1,3 +1,7 @@
+package Game;
+import Pieces.*;
+import Board.*;
+import Player.*;
 import java.util.ArrayList;
 
 public class Game {

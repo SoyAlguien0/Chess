@@ -1,3 +1,5 @@
+package Pieces;
+import Board.Position;
 import java.util.ArrayList;
 
 public class Pawn extends Piece {

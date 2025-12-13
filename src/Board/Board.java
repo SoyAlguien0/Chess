@@ -1,3 +1,5 @@
+package Board;
+import Pieces.*;
 import java.util.ArrayList;
 
 public class Board {
