@@ -37,6 +37,7 @@ public class Board {
         initBoxes();
         initPieces();
         setPieces();
+        setDraws();
         drawBoard();
     }
 
@@ -54,6 +55,7 @@ public class Board {
 
     public void updateBoard(){
         setPieces();
+        setDraws();
         drawBoard();
     }
 
@@ -100,20 +102,54 @@ public class Board {
                     System.out.print("\t"+(char)('a'+j-1));
                 }else{
                     if (i != 0 && j != 0) {
-                        if(board[j-1][i-1].getPiece() != null){
-                            System.out.print("\t"+board[j-1][i-1].getPiece().getName());
+                        Box box = board[j-1][i-1];
+                        if(box.getPiece() != null){
+                            System.out.print("\t"+box.getDraw());
                         }else{
                             //For the future
-                            if(board[j-1][i-1].getColor() == 0){
-                                System.out.print("\t.");
+                            if(box.getColor() == 0){
+                                System.out.print("\t"+box.getDraw());
                             }else {
-                                System.out.print("\t.");
+                                System.out.print("\t"+box.getDraw());
                             }
                         }
-                    }else System.out.print("\t");
+                    }else System.out.print("\t"); //0, 0
                 }
             }
             System.out.println();
+        }
+    }
+
+    private void setDraws(){
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                Box box = board[j][i];
+                if(box.getPiece() != null){
+                    box.setDraw(box.getPiece().getName());
+                }else{
+                    //For the future
+                    if(box.getColor() == 0){
+                        box.setDraw('.');
+                    }else {
+                        box.setDraw('.');
+                    }
+                }
+            }
+        }
+    }
+
+    public void drawTrail(ArrayList<Position> moves){
+        if (moves != null){
+            for (Position move:moves){
+                int x = move.getX();
+                int y = move.getY();
+                Box box = board[x][y];
+                if (box.getPiece() == null){
+                    box.setDraw('0');
+                }else{
+                    box.setDraw('X');
+                }
+            };
         }
     }
 
