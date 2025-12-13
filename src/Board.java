@@ -114,4 +114,32 @@ public class Board {
         }
         return AvailablePieces;
     }
+
+    public ArrayList<Position> getKills(ArrayList<Position> possibleKills, Piece piece){
+        ArrayList<Position> kills = new ArrayList<Position>();
+        for (Position position: possibleKills){
+            int x = position.getX();
+            int y = position.getY();
+            Piece pieceToCheck = board[x][y].getPiece();
+
+            if(pieceToCheck != null && piece.getColor() != pieceToCheck.getColor()){
+                kills.add(position);
+            }
+        }
+        return kills;
+    }
+
+    public ArrayList<Position> getMoves(ArrayList<Position> possibleMoves, Piece piece){
+        ArrayList<Position> moves = new ArrayList<Position>();
+        for (Position position: possibleMoves){
+            int x = position.getX();
+            int y = position.getY();
+            Piece pieceToCheck = board[x][y].getPiece();
+
+            if(pieceToCheck == null){
+                moves.add(position);
+            }
+        }
+        return moves;
+    }
 }
