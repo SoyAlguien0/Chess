@@ -59,15 +59,21 @@ public class Board {
         }
         // j = x, i = y
         for(Piece p : pieces){
-            int pieceX = p.getPosition().getX();
-            int pieceY = p.getPosition().getY();
-            board[pieceX][pieceY].setPiece(p);
+            if (!p.isDead()){
+                int pieceX = p.getPosition().getX();
+                int pieceY = p.getPosition().getY();
+                board[pieceX][pieceY].setPiece(p);
+            }
         }
     }
 
     public void setPiece(Piece piece, Position position){
         int newX = position.getX();
         int newY = position.getY();
+
+        if (board[newX][newY].getPiece() != null){
+            board[newX][newY].getPiece().setDead(true);
+        }
 
         piece.setPosition(position);
         board[newX][newY].setPiece(piece);
@@ -108,7 +114,7 @@ public class Board {
         boolean checking = true;
         ArrayList<Piece> AvailablePieces= new ArrayList<>();
         for(Piece p : pieces){
-            if (p.getColor() == playerColor && (!p.getPossibleMoves(checking).isEmpty() || !p.getPossibleKills(checking).isEmpty())){
+            if (!p.isDead() && p.getColor() == playerColor && (!p.getPossibleMoves(checking).isEmpty() || !p.getPossibleKills(checking).isEmpty())){
                 AvailablePieces.add(p);
             }
         }

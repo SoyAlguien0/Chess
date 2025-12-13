@@ -9,6 +9,7 @@ public abstract class Piece {
     protected boolean movedY = false;
     protected int direction ;
     protected boolean hasMoved = false;
+    protected boolean isDead = false;
 
     public Piece(Position position, int color) {
         this.position = position;
@@ -73,6 +74,14 @@ public abstract class Piece {
 
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 
     public void setName(String name) {
