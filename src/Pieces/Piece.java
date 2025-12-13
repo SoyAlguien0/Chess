@@ -68,7 +68,7 @@ public abstract class Piece {
     }
 
     public char getDrawName(char name) {
-        return (this.color == 0 ? '♟' : '♙');
+        return (this.color == 0 ? name : (char)(name-6));
     }
 
     public boolean isHasMoved() {
