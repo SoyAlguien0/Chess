@@ -6,7 +6,7 @@ import Board.Position;
 public abstract class Piece {
     protected Position position;
     protected int color; //0 = white, 1 = black
-    protected String name;
+    protected char name;
     protected Position[] possibleDirs;
     protected boolean movedX = false;
     protected boolean movedY = false;
@@ -63,12 +63,12 @@ public abstract class Piece {
         this.movedY = movedY;
     }
 
-    public String getName() {
+    public char getName() {
         return name;
     }
 
-    public String getDrawName(String name) {
-        return (this.color == 0 ? "♟" : "♙");
+    public char getDrawName(char name) {
+        return (this.color == 0 ? '♟' : '♙');
     }
 
     public boolean isHasMoved() {
@@ -87,7 +87,7 @@ public abstract class Piece {
         isDead = dead;
     }
 
-    public void setName(String name) {
+    public void setName(char name) {
         this.name = name;
     }
 

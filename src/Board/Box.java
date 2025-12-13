@@ -5,6 +5,7 @@ import Pieces.Piece;
 public class Box {
     private Piece piece;
     private int color;
+    private char draw;
 
     public Box(Piece piece, int color){
         this.piece = piece;
@@ -25,5 +26,13 @@ public class Box {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public char getDraw() {
+        return draw;
+    }
+
+    public void setDraw(char draw) {
+        this.draw = draw;
     }
 }
