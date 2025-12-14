@@ -3,9 +3,9 @@ import Pieces.*;
 import java.util.ArrayList;
 
 public class Board {
-    private Box[][] board = new Box[8][8];
-    private ArrayList<Piece> pieces = new ArrayList<Piece>();
-    private boolean debugMode = false;
+    private final Box[][] board = new Box[8][8];
+    private final ArrayList<Piece> pieces = new ArrayList<>();
+    private boolean debugMode;
 
     public Board(boolean debugMode){
         this.debugMode = debugMode;
@@ -93,7 +93,6 @@ public class Board {
     }
 
     public void drawBoard(){
-        final char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         int drawBoardSize = board.length + 1; //board + coordinates
         for (int i = 0; i < drawBoardSize; i++){
             for (int j = 0; j < drawBoardSize; j++){
