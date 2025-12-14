@@ -13,8 +13,9 @@ public class Board {
 
     private void initPieces() {
         // Initializing one by one for better debugging
-        // White pawns
-        pieces.add(new Pawn(new Position(0, 1), 0));
+        // White
+//        pieces.add(new Pawn(new Position(0, 1), 0));
+        pieces.add(new Rook(new Position(0, 1), 0));
         pieces.add(new Pawn(new Position(1, 1), 0));
         pieces.add(new Pawn(new Position(2, 1), 0));
         pieces.add(new Pawn(new Position(3, 1), 0));
@@ -22,7 +23,8 @@ public class Board {
         pieces.add(new Pawn(new Position(5, 1), 0));
         pieces.add(new Pawn(new Position(6, 1), 0));
         pieces.add(new Pawn(new Position(7, 1), 0));
-        // Black pawns
+        // Black
+        pieces.add(new Pawn(new Position(0, 7), 1));
         pieces.add(new Pawn(new Position(0, 6), 1));
         pieces.add(new Pawn(new Position(1, 6), 1));
         pieces.add(new Pawn(new Position(2, 6), 1));
@@ -51,7 +53,7 @@ public class Board {
         }
     }
 
-    public void updateBoard(){
+    public void updateBoard(ArrayList<Position> moves){
         setPieces();
         setDraws();
         drawTrail(moves);
@@ -163,21 +165,39 @@ public class Board {
         return AvailablePieces;
     }
 
-    public ArrayList<Position> getKills(ArrayList<Position> possibleKills, Piece piece){
+    public ArrayList<Position> getKills(ArrayList<ArrayList<Position>> allPossibleKills, Piece piece){
         ArrayList<Position> kills = new ArrayList<Position>();
-        for (Position position: possibleKills){
-            int x = position.getX();
-            int y = position.getY();
-            Piece pieceToCheck = board[x][y].getPiece();
-
-            if(pieceToCheck != null && piece.getColor() != pieceToCheck.getColor()){
-                kills.add(position);
+        for (ArrayList<Position> possibleKills: allPossibleKills){
+            possibleKills = checkCollision(possibleKills, piece);
+            for (Position position: possibleKills){
+                int x = position.getX();
+                int y = position.getY();
+                Piece pieceToCheck = board[x][y].getPiece();
+                if(pieceToCheck != null && piece.getColor() != pieceToCheck.getColor()){
+                    kills.add(position);
+                }
             }
         }
         return kills;
     }
 
-    public ArrayList<Position> getMoves(ArrayList<Position> possibleMoves, Piece piece){
+    public ArrayList<Position> getMoves(ArrayList<ArrayList<Position>> allPossiblemoves, Piece piece){
+        ArrayList<Position> moves = new ArrayList<Position>();
+        for (ArrayList<Position> possibleMoves: allPossiblemoves){
+            possibleMoves = checkCollision(possibleMoves, piece);
+            for (Position position: possibleMoves){
+                int x = position.getX();
+                int y = position.getY();
+                Piece pieceToCheck = board[x][y].getPiece();
+                if(pieceToCheck == null){
+                    moves.add(position);
+                }
+            }
+        }
+        return moves;
+    }
+
+    public ArrayList<Position> checkCollision(ArrayList<Position> possibleMoves, Piece piece){
         ArrayList<Position> moves = new ArrayList<Position>();
         for (Position position: possibleMoves){
             int x = position.getX();
@@ -186,6 +206,11 @@ public class Board {
 
             if(pieceToCheck == null){
                 moves.add(position);
+            }else{
+                if (pieceToCheck.getColor() != piece.getColor()){
+                    moves.add(position);
+                }
+                return moves;
             }
         }
         return moves;

@@ -25,9 +25,9 @@ public abstract class Piece {
         return (x<8 && x>=0) && (y>=0 && y<8);
     }
 
-    public abstract ArrayList<Position> getPossibleMoves(boolean checking);
+    public abstract ArrayList<ArrayList<Position>> getPossibleMoves(boolean checking);
 
-    public ArrayList<Position> getPossibleKills(boolean checking){
+    public ArrayList<ArrayList<Position>> getPossibleKills(boolean checking){
         return getPossibleMoves(checking);
     };
 

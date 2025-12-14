@@ -21,16 +21,18 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public ArrayList<Position> getPossibleMoves(boolean checking){
+    public ArrayList<ArrayList<Position>> getPossibleMoves(boolean checking){
         Position pos = this.position;
         ArrayList<Position> possibleMoves = new ArrayList<Position>();
+        ArrayList<ArrayList<Position>> allPossibleMoves = new ArrayList<ArrayList<Position>>();
         if (hasMoved &&
             super.validMove(pos.sumPosition(possibleDirs[0]))
         )
         {
             possibleMoves.add(pos.sumPosition(possibleDirs[0]));
             if(checking){
-                return possibleMoves;
+                allPossibleMoves.add(possibleMoves);
+                return allPossibleMoves;
             }
         }
         else if (!hasMoved
@@ -38,25 +40,29 @@ public class Pawn extends Piece {
         {
             possibleMoves.add(pos.sumPosition(possibleDirs[1]));
             if(checking){
-                return possibleMoves;
+                allPossibleMoves.add(possibleMoves);
+                return allPossibleMoves;
             }
         }
-
-        return  possibleMoves;
+        allPossibleMoves.add(possibleMoves);
+        return  allPossibleMoves;
     }
 
     @Override
-    public ArrayList<Position> getPossibleKills(boolean checking){
+    public ArrayList<ArrayList<Position>> getPossibleKills(boolean checking){
         Position pos = this.position;
         ArrayList<Position> possibleKills = new ArrayList<Position>();
+        ArrayList<ArrayList<Position>> allPossibleKills = new ArrayList<ArrayList<Position>>();
         for (int i = 0; i < possibleKillDirs.length; i++){
             if (super.validMove(pos.sumPosition(possibleKillDirs[i]))) {
                 possibleKills.add(pos.sumPosition(possibleKillDirs[i]));
                 if(checking){
-                    return possibleKills;
+                    allPossibleKills.add(possibleKills);
+                    return allPossibleKills;
                 }
             }
         }
-        return  possibleKills;
+        allPossibleKills.add(possibleKills);
+        return  allPossibleKills;
     }
 }
