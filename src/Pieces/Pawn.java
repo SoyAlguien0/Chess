@@ -25,17 +25,16 @@ public class Pawn extends Piece {
         Position pos = this.position;
         ArrayList<Position> possibleMoves = new ArrayList<>();
         ArrayList<ArrayList<Position>> allPossibleMoves = new ArrayList<ArrayList<Position>>();
-        if (hasMoved &&
-            super.validMove(pos.sumPosition(possibleDirs[0]))
-        )
-        {
-            possibleMoves.add(pos.sumPosition(possibleDirs[0]));
-            if(checking){
-                allPossibleMoves.add(possibleMoves);
-                return allPossibleMoves;
+        if (!hasMoved){
+            for (Position possibleDir: possibleDirs){
+                possibleMoves.add(pos.sumPosition(possibleDir));
+                if(checking){
+                    allPossibleMoves.add(possibleMoves);
+                    return allPossibleMoves;
+                }
             }
         }
-        else if (!hasMoved
+        else if (hasMoved
                 && super.validMove(pos.sumPosition(possibleDirs[1])))
         {
             possibleMoves.add(pos.sumPosition(possibleDirs[1]));
