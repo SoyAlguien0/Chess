@@ -205,6 +205,25 @@ public class Board {
             int y = position.getY();
             Piece pieceToCheck = board[x][y].getPiece();
 
+//            int xx = piece.getPosition().getX();
+//            int yy = piece.getPosition().getY();
+//
+//            if(!piece.canPenetrate()){
+//                if (x != xx){
+//                    for (int i = 1; i < Math.abs(x-xx); i++) {
+//                        if (board[x+i][y].getPiece() != null){
+//                            return moves;
+//                        }
+//                    }
+//                } else if (y != yy) {
+//                    for (int i = 1; i < Math.abs(y-yy); i++) {
+//                        if (board[x][y+i].getPiece() != null){
+//                            return moves;
+//                        }
+//                    }
+//                }
+//            }
+
             if(pieceToCheck == null){
                 moves.add(position);
             }else{
