@@ -14,8 +14,12 @@ public class Board {
     private void initPieces() {
         // Initializing one by one for better debugging
         // White
-//        pieces.add(new Pawn(new Position(0, 1), 0));
-        pieces.add(new Rook(new Position(0, 1), 0));
+        pieces.add(new Rook(new Position(0, 0), 0));
+
+
+        pieces.add(new King(new Position(3, 0), 0));
+        pieces.add(new Rook(new Position(7, 0), 0));
+        pieces.add(new Pawn(new Position(0, 1), 0));
         pieces.add(new Pawn(new Position(1, 1), 0));
         pieces.add(new Pawn(new Position(2, 1), 0));
         pieces.add(new Pawn(new Position(3, 1), 0));
@@ -23,8 +27,15 @@ public class Board {
         pieces.add(new Pawn(new Position(5, 1), 0));
         pieces.add(new Pawn(new Position(6, 1), 0));
         pieces.add(new Pawn(new Position(7, 1), 0));
+
+
         // Black
-        pieces.add(new Pawn(new Position(0, 7), 1));
+        pieces.add(new Rook(new Position(0, 7), 1));
+        pieces.add(new Rook(new Position(7, 7), 1));
+
+
+
+        pieces.add(new King(new Position(3, 7), 1));
         pieces.add(new Pawn(new Position(0, 6), 1));
         pieces.add(new Pawn(new Position(1, 6), 1));
         pieces.add(new Pawn(new Position(2, 6), 1));
@@ -224,13 +235,15 @@ public class Board {
 //                }
 //            }
 
-            if(pieceToCheck == null){
+            if(pieceToCheck == null) {
                 moves.add(position);
-            }else{
+            } else if (!pieceToCheck.equals(piece)) {
                 if (pieceToCheck.getColor() != piece.getColor()){
                     moves.add(position);
                 }
-                return moves;
+                if (!piece.hasVariousTargets()){
+                    return moves;
+                }
             }
         }
         return moves;
