@@ -17,7 +17,8 @@ public class Board {
         pieces.add(new Rook(new Position(0, 0), 0));
 
 
-        pieces.add(new King(new Position(3, 0), 0));
+        pieces.add(new Queen(new Position(3, 0), 0));
+        pieces.add(new King(new Position(4, 0), 0));
         pieces.add(new Rook(new Position(7, 0), 0));
         pieces.add(new Pawn(new Position(0, 1), 0));
         pieces.add(new Pawn(new Position(1, 1), 0));
@@ -28,14 +29,15 @@ public class Board {
         pieces.add(new Pawn(new Position(6, 1), 0));
         pieces.add(new Pawn(new Position(7, 1), 0));
 
-
+        pieces.add(new Queen(new Position(3, 3), 0));
         // Black
         pieces.add(new Rook(new Position(0, 7), 1));
         pieces.add(new Rook(new Position(7, 7), 1));
 
 
 
-        pieces.add(new King(new Position(3, 7), 1));
+        pieces.add(new Queen(new Position(3, 7), 1));
+        pieces.add(new King(new Position(4, 7), 1));
         pieces.add(new Pawn(new Position(0, 6), 1));
         pieces.add(new Pawn(new Position(1, 6), 1));
         pieces.add(new Pawn(new Position(2, 6), 1));
