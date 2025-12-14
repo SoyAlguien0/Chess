@@ -100,8 +100,8 @@ public abstract class Piece {
     @Override
     public String toString() {
         return "{" +
-                "name='" + name + '\'' +
-                ", position=" + position +
+                "name: '" + name + '\'' +
+                ", position: " + position +
                 '}';
     }
 }
