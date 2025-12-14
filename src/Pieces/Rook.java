@@ -7,7 +7,6 @@ public class Rook extends Piece{
     public Rook(Position position, int color){
         super(position,color);
         this.name = super.getDrawName('♜');
-        this.direction = this.color == 0 ? 1:-1;
     }
 
     @Override
