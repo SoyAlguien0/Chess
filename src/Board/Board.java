@@ -157,17 +157,18 @@ public class Board {
         boolean checking = true;
         ArrayList<Piece> AvailablePieces= new ArrayList<>();
         for(Piece p : pieces){
-            if (!p.isDead() && p.getColor() == playerColor && (!p.getPossibleMoves(checking).isEmpty() || !p.getPossibleKills(checking).isEmpty())){
+            if (!p.isDead() && p.getColor() == playerColor && (!getMoves(p, checking).isEmpty() || !getKills(p, checking).isEmpty())){
                 AvailablePieces.add(p);
             }
         }
         return AvailablePieces;
     }
 
-    public ArrayList<Position> getKills(ArrayList<ArrayList<Position>> allPossibleKills, Piece piece){
+    public ArrayList<Position> getKills(Piece piece, boolean checking){
+        ArrayList<ArrayList<Position>> allPossibleKills = piece.getPossibleKills(checking);
         ArrayList<Position> kills = new ArrayList<Position>();
         for (ArrayList<Position> possibleKills: allPossibleKills){
-            possibleKills = checkCollision(possibleKills, piece);
+            possibleKills = checkCollisions(possibleKills, piece);
             for (Position position: possibleKills){
                 int x = position.getX();
                 int y = position.getY();
@@ -180,10 +181,11 @@ public class Board {
         return kills;
     }
 
-    public ArrayList<Position> getMoves(ArrayList<ArrayList<Position>> allPossiblemoves, Piece piece){
+    public ArrayList<Position> getMoves(Piece piece, boolean checking){
+        ArrayList<ArrayList<Position>> allPossibleMoves = piece.getPossibleMoves(checking);
         ArrayList<Position> moves = new ArrayList<Position>();
-        for (ArrayList<Position> possibleMoves: allPossiblemoves){
-            possibleMoves = checkCollision(possibleMoves, piece);
+        for (ArrayList<Position> possibleMoves: allPossibleMoves){
+            possibleMoves = checkCollisions(possibleMoves, piece);
             for (Position position: possibleMoves){
                 int x = position.getX();
                 int y = position.getY();
@@ -196,7 +198,7 @@ public class Board {
         return moves;
     }
 
-    public ArrayList<Position> checkCollision(ArrayList<Position> possibleMoves, Piece piece){
+    public ArrayList<Position> checkCollisions(ArrayList<Position> possibleMoves, Piece piece){
         ArrayList<Position> moves = new ArrayList<Position>();
         for (Position position: possibleMoves){
             int x = position.getX();

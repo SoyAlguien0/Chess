@@ -42,8 +42,8 @@ public class Game {
 
                     //show possible moves from a specific piece
                     boolean checking = true;
-                    ArrayList<Position> moves = game.getMoves(chosenPiece.getPossibleMoves(!checking), chosenPiece);
-                    ArrayList<Position> kills = game.getKills(chosenPiece.getPossibleKills(!checking), chosenPiece);
+                    ArrayList<Position> moves = game.getMoves(chosenPiece, !checking);
+                    ArrayList<Position> kills = game.getKills(chosenPiece, !checking);
 
                     Position chosenPosition = null;
                     if (!moves.isEmpty() && !kills.isEmpty()) {
