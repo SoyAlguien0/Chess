@@ -15,7 +15,7 @@ public class Board {
         // Initializing one by one for better debugging
         // White
         pieces.add(new Rook(new Position(0, 0), 0));
-        pieces.add(new Knight(new Position(1, 5), 0));
+        pieces.add(new Knight(new Position(1, 0), 0));
         pieces.add(new Bishop(new Position(2, 0), 0));
         pieces.add(new Queen(new Position(3, 0), 0));
         pieces.add(new King(new Position(4, 0), 0));
