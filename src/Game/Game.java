@@ -13,7 +13,7 @@ public class Game {
     public Game(int numPlayers) {
         players = new Player[numPlayers];
         for (int i = 0; i < players.length; i++) {
-            players[i] = new Player(i);
+            players[i] = new Player(i, ""+(i+1));
         }
         initGame();
     }
@@ -29,7 +29,15 @@ public class Game {
             if (players.length == 2){
                 for (int i = 0; i < players.length; i++) {
                     Player currentPlayer = players[i];
-                    System.out.println("Player "+(i+1)+" turn.");
+                    int alivePieces = game.getAlivePieces(currentPlayer.getColor());
+                    currentPlayer.setAlivePieces(alivePieces);
+                    if (alivePieces <= 0){
+                        currentPlayer.setStatus(0);
+                        gameOver = true;
+                        break;
+                    }
+
+                    System.out.println("Player "+currentPlayer.getName()+" turn.");
 
                     //show available pieces
                     ArrayList<Piece> availablePieces = getAvailablePieces(currentPlayer);
@@ -91,6 +99,13 @@ public class Game {
                 }
             }
         }
+        Player winner = null;
+        for (Player player:players){
+            if (player.getStatus() == 1){
+                winner = player;
+            }
+        }
+        System.out.println("Player "+winner.getName()+" wins.");
     }
 
     public void showPossibleMoves(ArrayList<Position> possibleMoves){

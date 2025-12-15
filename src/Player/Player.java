@@ -7,11 +7,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player {
+    private String name;
     private int color;
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
+    private int alivePieces = 16;
 
-    public Player(int color) {
+    //todo
+    private int status = 1;
+
+    public Player(int color, String name) {
         this.color = color;
+        this.name = name;
     }
 
     public int choosePiece(ArrayList<Piece> availablePieces){
@@ -31,5 +37,29 @@ public class Player {
 
     public int getColor() {
         return color;
+    }
+
+    public int getAlivePieces() {
+        return alivePieces;
+    }
+
+    public void setAlivePieces(int alivePieces) {
+        this.alivePieces = alivePieces;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
