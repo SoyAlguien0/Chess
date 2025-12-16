@@ -73,7 +73,7 @@ public abstract class Piece {
         return (this.color == 0 ? name : (char)(name-6));
     }
 
-    public boolean isHasMoved() {
+    public boolean hasMoved() {
         return hasMoved;
     }
 
