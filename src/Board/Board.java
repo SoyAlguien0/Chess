@@ -262,4 +262,34 @@ public class Board {
         }
         return moves;
     }
+
+    public void checkAll(){
+
+    }
+
+    public void checkCastling(ArrayList<Position> possibleMoves, Piece piece){
+        ArrayList<Position> moves = new ArrayList<Position>();
+        if(piece instanceof King && !piece.hasMoved()){
+            for (Piece p: pieces){
+                if (p.getColor() == piece.getColor() && !p.hasMoved() && p instanceof Rook){
+                    int kingX = piece.getPosition().getX();
+                    int y = piece.getPosition().getY(); //it will be at the same level 100%
+                    int rookX = p.getPosition().getX();
+
+                    boolean queenSideCastling = rookX - kingX < 0;
+                    for (int i = 1; i < Math.abs(rookX-kingX); i++) {
+                        int x = queenSideCastling ? kingX + Math.negateExact(i) : kingX+i;
+                        if (board[x][y].getPiece() != null){
+                            break;
+                        }
+                        if (i == Math.abs(rookX-kingX)-1){
+                            //end of the for
+                            x = queenSideCastling ? kingX-2 : kingX+2;
+                            moves.add(new Position(x, y));
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
