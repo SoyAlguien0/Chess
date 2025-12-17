@@ -36,9 +36,9 @@ public class Pawn extends Piece {
             }
         }
         else if (hasMoved
-                && super.validMove(pos.sumPosition(possibleDirs[1])))
+                && super.validMove(pos.sumPosition(possibleDirs[0])))
         {
-            possibleMoves.add(pos.sumPosition(possibleDirs[1]));
+            possibleMoves.add(pos.sumPosition(possibleDirs[0]));
             if(checking){
                 allPossibleMoves.add(possibleMoves);
                 return allPossibleMoves;
