@@ -18,7 +18,7 @@ public abstract class Piece {
     public Piece(Position position, int color) {
         this.position = position;
         this.color = color;
-        this.direction = this.color == 0 ? 1:-1;
+        this.direction = this.color == 0 ? -1:1;
     }
 
     public boolean validMove(Position pos){
