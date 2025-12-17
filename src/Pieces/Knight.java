@@ -3,11 +3,12 @@ package Pieces;
 import Board.Position;
 
 import java.util.ArrayList;
+import Consts.Color;
 
 public class Knight extends Piece{
     final private Position[] possibleDirs;
 
-    public Knight(Position position, int color){
+    public Knight(Position position, Color color){
         super(position,color);
         this.name = super.getDrawName('♞');
         this.hasVariousTargets = true;

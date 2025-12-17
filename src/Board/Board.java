@@ -1,6 +1,7 @@
 package Board;
 import Pieces.*;
 import java.util.ArrayList;
+import Consts.Color;
 
 public class Board {
     private final Box[][] board = new Box[8][8];
@@ -13,41 +14,39 @@ public class Board {
 
     private void initPieces() {
         // Initializing one by one for better debugging
-        // White
-        pieces.add(new Rook(new Position(0, 7), 0));
-        pieces.add(new Knight(new Position(1, 7), 0));
-        pieces.add(new Bishop(new Position(2, 7), 0));
-        pieces.add(new King(new Position(3, 7), 0));
-        pieces.add(new Queen(new Position(4, 7), 0));
-        pieces.add(new Bishop(new Position(5, 7), 0));
-        pieces.add(new Knight(new Position(6, 7), 0));
-        pieces.add(new Rook(new Position(7, 7), 0));
-        pieces.add(new Pawn(new Position(0, 6), 0));
-        pieces.add(new Pawn(new Position(1, 6), 0));
-        pieces.add(new Pawn(new Position(2, 6), 0));
-        pieces.add(new Pawn(new Position(3, 6), 0));
-        pieces.add(new Pawn(new Position(4, 6), 0));
-        pieces.add(new Pawn(new Position(5, 6), 0));
-        pieces.add(new Pawn(new Position(6, 6), 0));
-        pieces.add(new Pawn(new Position(7, 6), 0));
+        pieces.add(new Rook(new Position(0, 7), Color.WHITE));
+        pieces.add(new Knight(new Position(1, 7), Color.WHITE));
+        pieces.add(new Bishop(new Position(2, 7), Color.WHITE));
+        pieces.add(new King(new Position(3, 7), Color.WHITE));
+        pieces.add(new Queen(new Position(4, 7), Color.WHITE));
+        pieces.add(new Bishop(new Position(5, 7), Color.WHITE));
+        pieces.add(new Knight(new Position(6, 7), Color.WHITE));
+        pieces.add(new Rook(new Position(7, 7), Color.WHITE));
+        pieces.add(new Pawn(new Position(0, 6), Color.WHITE));
+        pieces.add(new Pawn(new Position(1, 6), Color.WHITE));
+        pieces.add(new Pawn(new Position(2, 6), Color.WHITE));
+        pieces.add(new Pawn(new Position(3, 6), Color.WHITE));
+        pieces.add(new Pawn(new Position(4, 6), Color.WHITE));
+        pieces.add(new Pawn(new Position(5, 6), Color.WHITE));
+        pieces.add(new Pawn(new Position(6, 6), Color.WHITE));
+        pieces.add(new Pawn(new Position(7, 6), Color.WHITE));
 
-        // Black
-        pieces.add(new Rook(new Position(0, 0), 1));
-        pieces.add(new Knight(new Position(1, 0), 1));
-        pieces.add(new Bishop(new Position(2, 0), 1));
-        pieces.add(new Queen(new Position(4, 0), 1));
-        pieces.add(new King(new Position(3, 0), 1));
-        pieces.add(new Bishop(new Position(5, 0), 1));
-        pieces.add(new Knight(new Position(6, 0), 1));
-        pieces.add(new Rook(new Position(7, 0), 1));
-        pieces.add(new Pawn(new Position(0, 1), 1));
-        pieces.add(new Pawn(new Position(1, 1), 1));
-        pieces.add(new Pawn(new Position(2, 1), 1));
-        pieces.add(new Pawn(new Position(3, 1), 1));
-        pieces.add(new Pawn(new Position(4, 1), 1));
-        pieces.add(new Pawn(new Position(5, 1), 1));
-        pieces.add(new Pawn(new Position(6, 1), 1));
-        pieces.add(new Pawn(new Position(7, 1), 1));
+        pieces.add(new Rook(new Position(0, 0), Color.BLACK));
+        pieces.add(new Knight(new Position(1, 0), Color.BLACK));
+        pieces.add(new Bishop(new Position(2, 0), Color.BLACK));
+        pieces.add(new Queen(new Position(4, 0), Color.BLACK));
+        pieces.add(new King(new Position(3, 0), Color.BLACK));
+        pieces.add(new Bishop(new Position(5, 0), Color.BLACK));
+        pieces.add(new Knight(new Position(6, 0), Color.BLACK));
+        pieces.add(new Rook(new Position(7, 0), Color.BLACK));
+        pieces.add(new Pawn(new Position(0, 1), Color.BLACK));
+        pieces.add(new Pawn(new Position(1, 1), Color.BLACK));
+        pieces.add(new Pawn(new Position(2, 1), Color.BLACK));
+        pieces.add(new Pawn(new Position(3, 1), Color.BLACK));
+        pieces.add(new Pawn(new Position(4, 1), Color.BLACK));
+        pieces.add(new Pawn(new Position(5, 1), Color.BLACK));
+        pieces.add(new Pawn(new Position(6, 1), Color.BLACK));
+        pieces.add(new Pawn(new Position(7, 1), Color.BLACK));
     }
 
     public void initBoard(){
@@ -186,7 +185,7 @@ public class Board {
         }
     }
 
-    public ArrayList<Piece> getAvailablePieces(int playerColor){
+    public ArrayList<Piece> getAvailablePieces(Color playerColor){
         boolean checking = true;
         ArrayList<Piece> AvailablePieces= new ArrayList<>();
         for(Piece p : pieces){
@@ -197,7 +196,7 @@ public class Board {
         return AvailablePieces;
     }
 
-    public int getAlivePieces(int playerColor){
+    public int getAlivePieces(Color playerColor){
         int counter = 0;
         for(Piece p : pieces){
             if (!p.isDead() && p.getColor() == playerColor){

@@ -1,10 +1,12 @@
 package Pieces;
+
 import Board.Position;
 import java.util.ArrayList;
+import Consts.Color;
 
 public class Rook extends Piece{
 
-    public Rook(Position position, int color){
+    public Rook(Position position, Color color){
         super(position,color);
         this.name = super.getDrawName('♜');
     }

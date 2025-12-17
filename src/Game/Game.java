@@ -1,4 +1,5 @@
 package Game;
+import Consts.Color;
 import Pieces.*;
 import Board.*;
 import Player.*;
@@ -13,7 +14,7 @@ public class Game {
     public Game(int numPlayers) {
         players = new Player[numPlayers];
         for (int i = 0; i < players.length; i++) {
-            players[i] = new Player(i, ""+(i+1));
+            players[i] = new Player(Color.values()[i], ""+(i+1));
         }
         initGame();
     }

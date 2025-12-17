@@ -2,10 +2,11 @@ package Pieces;
 
 import java.util.ArrayList;
 import Board.Position;
+import Consts.Color;
 
 public abstract class Piece {
     protected Position position;
-    protected int color; //0 = white, 1 = black
+    protected Color color;
     protected char name;
     protected Position[] possibleDirs;
     protected boolean movedX = false;
@@ -15,10 +16,10 @@ public abstract class Piece {
     protected boolean hasVariousTargets = false;
     protected boolean isDead = false;
 
-    public Piece(Position position, int color) {
+    public Piece(Position position, Color color) {
         this.position = position;
         this.color = color;
-        this.direction = this.color == 0 ? -1:1;
+        this.direction = this.color == Color.WHITE ? -1:1;
     }
 
     public boolean validMove(Position pos){
@@ -41,11 +42,11 @@ public abstract class Piece {
         this.position = position;
     }
 
-    public int getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(int color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -70,7 +71,7 @@ public abstract class Piece {
     }
 
     public char getDrawName(char name) {
-        return (this.color == 0 ? name : (char)(name-6));
+        return (this.color == Color.WHITE ? name : (char)(name-6));
     }
 
     public boolean hasMoved() {

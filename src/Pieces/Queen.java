@@ -1,11 +1,12 @@
 package Pieces;
 
 import Board.Position;
+import Consts.Color;
 
 import java.util.ArrayList;
 
 public class Queen extends Piece{
-    public Queen(Position position, int color){
+    public Queen(Position position, Color color){
         super(position,color);
         this.name = super.getDrawName('♛');
     }

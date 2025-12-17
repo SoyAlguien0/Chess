@@ -5,17 +5,18 @@ import Pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import Consts.Color;
 
 public class Player {
     private String name;
-    private int color;
+    private Color color;
     private Scanner sc = new Scanner(System.in);
     private int alivePieces = 16;
 
     //todo
     private int status = 1;
 
-    public Player(int color, String name) {
+    public Player(Color color, String name) {
         this.color = color;
         this.name = name;
     }
@@ -35,7 +36,7 @@ public class Player {
         return sc.nextInt();
     }
 
-    public int getColor() {
+    public Color getColor() {
         return color;
     }
 

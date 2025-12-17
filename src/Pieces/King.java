@@ -3,10 +3,11 @@ package Pieces;
 import Board.Position;
 
 import java.util.ArrayList;
+import Consts.Color;
 
 public class King extends Piece{
 
-    public King(Position position, int color){
+    public King(Position position, Color color){
         super(position,color);
         this.name = super.getDrawName('♚');
         this.hasVariousTargets = true;

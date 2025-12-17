@@ -1,12 +1,14 @@
 package Pieces;
+
 import Board.Position;
 import java.util.ArrayList;
+import Consts.Color;
 
 public class Pawn extends Piece {
     final private Position[] possibleKillDirs;
     final private Position[] possibleDirs;
 
-    public Pawn(Position position, int color){
+    public Pawn(Position position, Color color){
         super(position,color);
         this.name = super.getDrawName('♟');
         this.possibleDirs = new Position[]{
