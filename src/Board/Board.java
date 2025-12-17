@@ -96,6 +96,24 @@ public class Board {
         int newX = position.getX();
         int newY = position.getY();
 
+        if (piece instanceof King){
+            int kingX = piece.getPosition().getX();
+            int y = piece.getPosition().getY();
+            if (Math.abs(kingX-newX) > 1){
+                for (Piece p: pieces){
+                    if (p.getColor() == piece.getColor() && p instanceof Rook){
+                        int rookX = p.getPosition().getX();
+                        if (newX<kingX && rookX<newX){
+                            setPiece(p, new Position(newX+1, y));
+                            break;
+                        }else if(newX>kingX && rookX>newX){
+                            setPiece(p, new Position(newX-1, y));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
         if (board[newX][newY].getPiece() != null){
             board[newX][newY].getPiece().setDead(true);
         }
