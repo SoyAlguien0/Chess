@@ -27,24 +27,23 @@ public class Game {
         boolean gameOver = false;
         while(!gameOver){
             if (players.length == 2){
-                for (int i = 0; i < players.length; i++) {
-                    Player currentPlayer = players[i];
+                for (Player currentPlayer : players) {
                     int alivePieces = game.getAlivePieces(currentPlayer.getColor());
                     currentPlayer.setAlivePieces(alivePieces);
-                    if (alivePieces <= 0){
+                    if (alivePieces <= 0) {
                         currentPlayer.setStatus(0);
                         gameOver = true;
                         break;
                     }
 
-                    System.out.println("Player "+currentPlayer.getName()+" turn.");
+                    System.out.println("Player " + currentPlayer.getName() + " turn.");
 
                     //show available pieces
                     ArrayList<Piece> availablePieces = getAvailablePieces(currentPlayer);
                     showAvailablePieces(availablePieces);
                     int playerInput = -1;
-                    while (!validChose(new int[]{0, availablePieces.size()-1},playerInput)){
-                        playerInput = currentPlayer.choosePiece(availablePieces);
+                    while (!validChose(new int[]{0, availablePieces.size() - 1}, playerInput)) {
+                        playerInput = currentPlayer.choosePiece();
                     }
                     Piece chosenPiece = availablePieces.get(playerInput);
 
@@ -56,40 +55,38 @@ public class Game {
                     Position chosenPosition = null;
                     if (!moves.isEmpty() && !kills.isEmpty()) {
                         int chosenPlay = -1;
-                        while (!validChose(new int[]{1, 2},chosenPlay)){
+                        while (!validChose(new int[]{1, 2}, chosenPlay)) {
                             System.out.println("1. Kills\n" +
                                     "2. moves ");
                             chosenPlay = currentPlayer.choosePlay();
                         }
-                        if (chosenPlay == 1){
+                        if (chosenPlay == 1) {
                             playerInput = -1;
-                            while (!validChose(new int[]{0, moves.size()-1},playerInput)){
+                            while (!validChose(new int[]{0, moves.size() - 1}, playerInput)) {
                                 showPossibleMoves(kills);
-                                playerInput = currentPlayer.choosePosition(kills);
+                                playerInput = currentPlayer.choosePosition();
                             }
                             chosenPosition = kills.get(playerInput);
-                        }else if(chosenPlay == 2) {
+                        } else if (chosenPlay == 2) {
                             playerInput = -1;
-                            while (!validChose(new int[]{0, moves.size()-1},playerInput)){
+                            while (!validChose(new int[]{0, moves.size() - 1}, playerInput)) {
                                 showPossibleMoves(moves);
-                                playerInput = currentPlayer.choosePosition(moves);
+                                playerInput = currentPlayer.choosePosition();
                             }
                             chosenPosition = moves.get(playerInput);
                         }
-                    }
-                    else if (!moves.isEmpty()){
+                    } else if (!moves.isEmpty()) {
                         playerInput = -1;
-                        while (!validChose(new int[]{0, moves.size()-1},playerInput)){
+                        while (!validChose(new int[]{0, moves.size() - 1}, playerInput)) {
                             showPossibleMoves(moves);
-                            playerInput = currentPlayer.choosePosition(moves);
+                            playerInput = currentPlayer.choosePosition();
                         }
                         chosenPosition = moves.get(playerInput);
-                    }
-                    else if (!kills.isEmpty()){
+                    } else if (!kills.isEmpty()) {
                         playerInput = -1;
-                        while (!validChose(new int[]{0, moves.size()-1},playerInput)){
+                        while (!validChose(new int[]{0, moves.size() - 1}, playerInput)) {
                             showPossibleMoves(kills);
-                            playerInput = currentPlayer.choosePosition(kills);
+                            playerInput = currentPlayer.choosePosition();
                         }
                         chosenPosition = kills.get(playerInput);
                     }
