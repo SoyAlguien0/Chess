@@ -1,4 +1,5 @@
 package Board;
+import Consts.State;
 import Pieces.*;
 import java.util.ArrayList;
 import Consts.Color;
@@ -79,6 +80,7 @@ public class Board {
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board.length; j++){
                 board[j][i].setPiece(null);
+                board[j][i].setState(State.FREE);
             }
         }
         // j = x, i = y
@@ -87,6 +89,7 @@ public class Board {
                 int pieceX = p.getPosition().getX();
                 int pieceY = p.getPosition().getY();
                 board[pieceX][pieceY].setPiece(p);
+                board[pieceX][pieceY].setState(State.OCCUPIED);
             }
         }
     }
@@ -113,7 +116,7 @@ public class Board {
                 }
             }
         }
-        if (board[newX][newY].getPiece() != null){
+        if (board[newX][newY].isOccupied()){
             board[newX][newY].getPiece().setDead(true);
         }
 
@@ -135,7 +138,7 @@ public class Board {
                 }else{
                     if (i != 0 && j != 0) {
                         Box box = board[j-1][i-1];
-                        if(box.getPiece() != null){
+                        if(box.isOccupied()){
                             System.out.print("\t"+box.getDraw());
                         }else{
                             //For the future
@@ -156,7 +159,7 @@ public class Board {
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
                 Box box = board[j][i];
-                if(box.getPiece() != null){
+                if(box.isOccupied()){
                     box.setDraw(box.getPiece().getName());
                 }else{
                     //For the future
@@ -176,7 +179,7 @@ public class Board {
                 int x = move.getX();
                 int y = move.getY();
                 Box box = board[x][y];
-                if (box.getPiece() == null){
+                if (!box.isOccupied()){
                     box.setDraw('0');
                 }else{
                     box.setDraw('X');
@@ -248,9 +251,10 @@ public class Board {
         for (Position position: possibleMoves){
             int x = position.getX();
             int y = position.getY();
-            Piece pieceToCheck = board[x][y].getPiece();
+            Box box = board[x][y];
+            Piece pieceToCheck = box.getPiece();
 
-            if(pieceToCheck == null) {
+            if(!box.isOccupied()) {
                 moves.add(position);
             } else if (!pieceToCheck.equals(piece)) {
                 if (pieceToCheck.getColor() != piece.getColor()){
@@ -279,7 +283,7 @@ public class Board {
                 boolean queenSideCastling = rookX - kingX < 0;
                 for (int i = 1; i < Math.abs(rookX-kingX); i++) {
                     int x = queenSideCastling ? kingX + Math.negateExact(i) : kingX+i;
-                    if (board[x][y].getPiece() != null){
+                    if (board[x][y].isOccupied()){
                         break;
                     }
                     if (i == Math.abs(rookX-kingX)-1){
