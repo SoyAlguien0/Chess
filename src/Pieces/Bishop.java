@@ -21,8 +21,7 @@ public class Bishop extends Piece{
         for (int i = 1; i < 8; i++) {
             int x = this.position.getX();
             int y = this.position.getY();
-            Position position = new Position(x, y+i);
-            position = new Position(x+i, y+i);
+            Position position = new Position(x+i, y+i);
             if (super.validMove(position)) {
                 possibleMovesXY.add(position);
             }
