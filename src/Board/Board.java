@@ -181,7 +181,7 @@ public class Board {
                 }else{
                     box.setDraw('X');
                 }
-            };
+            }
         }
     }
 
