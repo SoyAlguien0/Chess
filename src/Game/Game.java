@@ -6,7 +6,6 @@ import Player.*;
 import java.util.ArrayList;
 
 public class Game {
-    private int totalMovements;
     private Player[] players;
     private final boolean debugMode = true;
     Board game = new Board(debugMode);
