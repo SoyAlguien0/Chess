@@ -208,7 +208,7 @@ public class Board {
 
     public ArrayList<Position> getMoves(Piece piece, boolean checking){
         ArrayList<ArrayList<Position>> allPossibleMoves = piece.getPossibleMoves(checking);
-        ArrayList<Position> moves = new ArrayList<Position>();
+        ArrayList<Position> moves = new ArrayList<Position>(checkCastling(piece));
         for (ArrayList<Position> possibleMoves: allPossibleMoves){
             possibleMoves = checkCollisions(possibleMoves, piece);
             for (Position position: possibleMoves){
@@ -230,25 +230,6 @@ public class Board {
             int y = position.getY();
             Piece pieceToCheck = board[x][y].getPiece();
 
-//            int xx = piece.getPosition().getX();
-//            int yy = piece.getPosition().getY();
-//
-//            if(!piece.canPenetrate()){
-//                if (x != xx){
-//                    for (int i = 1; i < Math.abs(x-xx); i++) {
-//                        if (board[x+i][y].getPiece() != null){
-//                            return moves;
-//                        }
-//                    }
-//                } else if (y != yy) {
-//                    for (int i = 1; i < Math.abs(y-yy); i++) {
-//                        if (board[x][y+i].getPiece() != null){
-//                            return moves;
-//                        }
-//                    }
-//                }
-//            }
-
             if(pieceToCheck == null) {
                 moves.add(position);
             } else if (!pieceToCheck.equals(piece)) {
@@ -267,14 +248,13 @@ public class Board {
 
     }
 
-    public void checkCastling(ArrayList<Position> possibleMoves, Piece piece){
+    public ArrayList<Position> checkCastling(Piece piece){
         ArrayList<Position> moves = new ArrayList<Position>();
-        if(piece instanceof King && !piece.hasMoved()){
-            for (Piece p: pieces){
-                if (p.getColor() == piece.getColor() && !p.hasMoved() && p instanceof Rook){
-                    int kingX = piece.getPosition().getX();
-                    int y = piece.getPosition().getY(); //it will be at the same level 100%
-                    int rookX = p.getPosition().getX();
+        for (Piece p: pieces){
+            if (!p.isDead() && !p.hasMoved() && p.getColor() == piece.getColor() && p instanceof Rook){
+                int kingX = piece.getPosition().getX();
+                int y = piece.getPosition().getY(); //it will be at the same level 100%
+                int rookX = p.getPosition().getX();
 
                     boolean queenSideCastling = rookX - kingX < 0;
                     for (int i = 1; i < Math.abs(rookX-kingX); i++) {
@@ -291,5 +271,20 @@ public class Board {
                 }
             }
         }
+                boolean queenSideCastling = rookX - kingX < 0;
+                for (int i = 1; i < Math.abs(rookX-kingX); i++) {
+                    int x = queenSideCastling ? kingX + Math.negateExact(i) : kingX+i;
+                    if (board[x][y].getPiece() != null){
+                        break;
+                    }
+                    if (i == Math.abs(rookX-kingX)-1){
+                        //end of the for
+                        x = queenSideCastling ? kingX-2 : kingX+2;
+                        moves.add(new Position(x, y));
+                    }
+                }
+            }
+        }
+        return moves;
     }
 }
