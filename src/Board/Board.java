@@ -225,7 +225,10 @@ public class Board {
 
     public ArrayList<Position> getMoves(Piece piece, boolean checking){
         ArrayList<ArrayList<Position>> allPossibleMoves = piece.getPossibleMoves(checking);
-        ArrayList<Position> moves = new ArrayList<Position>(checkCastling(piece));
+        ArrayList<Position> moves = new ArrayList<Position>();
+        if (piece instanceof King){
+            moves.addAll(checkCastling(piece));
+        }
         for (ArrayList<Position> possibleMoves: allPossibleMoves){
             possibleMoves = checkCollisions(possibleMoves, piece);
             for (Position position: possibleMoves){
