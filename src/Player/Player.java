@@ -10,7 +10,7 @@ import Consts.Color;
 public class Player {
     private String name;
     private Color color;
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
     private int alivePieces = 16;
 
     //todo
@@ -21,12 +21,12 @@ public class Player {
         this.name = name;
     }
 
-    public int choosePiece(ArrayList<Piece> availablePieces){
+    public int choosePiece(){
         System.out.print("Choose a piece: ");
         return sc.nextInt()-1;
     }
 
-    public int choosePosition(ArrayList<Position> possibleMoves){
+    public int choosePosition(){
         System.out.print("Choose a movement: ");
         return sc.nextInt()-1;
     }
