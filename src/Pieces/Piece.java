@@ -8,9 +8,6 @@ public abstract class Piece {
     protected Position position;
     protected Color color;
     protected char name;
-    protected Position[] possibleDirs;
-    protected boolean movedX = false;
-    protected boolean movedY = false;
     protected int direction ;
     protected boolean hasMoved = false;
     protected boolean hasVariousTargets = false;
@@ -32,7 +29,7 @@ public abstract class Piece {
 
     public ArrayList<ArrayList<Position>> getPossibleKills(boolean checking){
         return getPossibleMoves(checking);
-    };
+    }
 
     public Position getPosition() {
         return position;
@@ -48,22 +45,6 @@ public abstract class Piece {
 
     public void setColor(Color color) {
         this.color = color;
-    }
-
-    public boolean isMovedX() {
-        return movedX;
-    }
-
-    public void setMovedX(boolean movedX) {
-        this.movedX = movedX;
-    }
-
-    public boolean isMovedY() {
-        return movedY;
-    }
-
-    public void setMovedY(boolean movedY) {
-        this.movedY = movedY;
     }
 
     public char getName() {
@@ -92,10 +73,6 @@ public abstract class Piece {
 
     public void setDead(boolean dead) {
         isDead = dead;
-    }
-
-    public void setName(char name) {
-        this.name = name;
     }
 
     @Override
