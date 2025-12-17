@@ -14,40 +14,40 @@ public class Board {
     private void initPieces() {
         // Initializing one by one for better debugging
         // White
-        pieces.add(new Rook(new Position(0, 0), 0));
-        pieces.add(new Knight(new Position(1, 0), 0));
-        pieces.add(new Bishop(new Position(2, 0), 0));
-        pieces.add(new Queen(new Position(3, 0), 0));
-        pieces.add(new King(new Position(4, 0), 0));
-        pieces.add(new Bishop(new Position(5, 0), 0));
-        pieces.add(new Knight(new Position(6, 0), 0));
-        pieces.add(new Rook(new Position(7, 0), 0));
-        pieces.add(new Pawn(new Position(0, 1), 0));
-        pieces.add(new Pawn(new Position(1, 1), 0));
-        pieces.add(new Pawn(new Position(2, 1), 0));
-        pieces.add(new Pawn(new Position(3, 1), 0));
-        pieces.add(new Pawn(new Position(4, 1), 0));
-        pieces.add(new Pawn(new Position(5, 1), 0));
-        pieces.add(new Pawn(new Position(6, 1), 0));
-        pieces.add(new Pawn(new Position(7, 1), 0));
+        pieces.add(new Rook(new Position(0, 7), 0));
+        pieces.add(new Knight(new Position(1, 7), 0));
+        pieces.add(new Bishop(new Position(2, 7), 0));
+        pieces.add(new King(new Position(3, 7), 0));
+        pieces.add(new Queen(new Position(4, 7), 0));
+        pieces.add(new Bishop(new Position(5, 7), 0));
+        pieces.add(new Knight(new Position(6, 7), 0));
+        pieces.add(new Rook(new Position(7, 7), 0));
+        pieces.add(new Pawn(new Position(0, 6), 0));
+        pieces.add(new Pawn(new Position(1, 6), 0));
+        pieces.add(new Pawn(new Position(2, 6), 0));
+        pieces.add(new Pawn(new Position(3, 6), 0));
+        pieces.add(new Pawn(new Position(4, 6), 0));
+        pieces.add(new Pawn(new Position(5, 6), 0));
+        pieces.add(new Pawn(new Position(6, 6), 0));
+        pieces.add(new Pawn(new Position(7, 6), 0));
 
         // Black
-        pieces.add(new Rook(new Position(0, 7), 1));
-        pieces.add(new Knight(new Position(1, 7), 1));
-        pieces.add(new Bishop(new Position(2, 7), 1));
-        pieces.add(new Queen(new Position(3, 7), 1));
-        pieces.add(new King(new Position(4, 7), 1));
-        pieces.add(new Bishop(new Position(5, 7), 1));
-        pieces.add(new Knight(new Position(6, 7), 1));
-        pieces.add(new Rook(new Position(7, 7), 1));
-        pieces.add(new Pawn(new Position(0, 6), 1));
-        pieces.add(new Pawn(new Position(1, 6), 1));
-        pieces.add(new Pawn(new Position(2, 6), 1));
-        pieces.add(new Pawn(new Position(3, 6), 1));
-        pieces.add(new Pawn(new Position(4, 6), 1));
-        pieces.add(new Pawn(new Position(5, 6), 1));
-        pieces.add(new Pawn(new Position(6, 6), 1));
-        pieces.add(new Pawn(new Position(7, 6), 1));
+        pieces.add(new Rook(new Position(0, 0), 1));
+        pieces.add(new Knight(new Position(1, 0), 1));
+        pieces.add(new Bishop(new Position(2, 0), 1));
+        pieces.add(new Queen(new Position(4, 0), 1));
+        pieces.add(new King(new Position(3, 0), 1));
+        pieces.add(new Bishop(new Position(5, 0), 1));
+        pieces.add(new Knight(new Position(6, 0), 1));
+        pieces.add(new Rook(new Position(7, 0), 1));
+        pieces.add(new Pawn(new Position(0, 1), 1));
+        pieces.add(new Pawn(new Position(1, 1), 1));
+        pieces.add(new Pawn(new Position(2, 1), 1));
+        pieces.add(new Pawn(new Position(3, 1), 1));
+        pieces.add(new Pawn(new Position(4, 1), 1));
+        pieces.add(new Pawn(new Position(5, 1), 1));
+        pieces.add(new Pawn(new Position(6, 1), 1));
+        pieces.add(new Pawn(new Position(7, 1), 1));
     }
 
     public void initBoard(){
@@ -256,21 +256,6 @@ public class Board {
                 int y = piece.getPosition().getY(); //it will be at the same level 100%
                 int rookX = p.getPosition().getX();
 
-                    boolean queenSideCastling = rookX - kingX < 0;
-                    for (int i = 1; i < Math.abs(rookX-kingX); i++) {
-                        int x = queenSideCastling ? kingX + Math.negateExact(i) : kingX+i;
-                        if (board[x][y].getPiece() != null){
-                            break;
-                        }
-                        if (i == Math.abs(rookX-kingX)-1){
-                            //end of the for
-                            x = queenSideCastling ? kingX-2 : kingX+2;
-                            moves.add(new Position(x, y));
-                        }
-                    }
-                }
-            }
-        }
                 boolean queenSideCastling = rookX - kingX < 0;
                 for (int i = 1; i < Math.abs(rookX-kingX); i++) {
                     int x = queenSideCastling ? kingX + Math.negateExact(i) : kingX+i;
