@@ -19,8 +19,15 @@ public class Game {
     }
 
     public void initGame(){
+        initPlayers();
         game.initBoard();
         gameLoop();
+    }
+
+    public void initPlayers(){
+        for (int i = 0; i < players.length; i++) {
+            players[i] = new Player(Color.values()[i], ""+(i+1));
+        }
     }
 
     public void gameLoop(){
