@@ -1,9 +1,6 @@
 package Player;
 
-import Board.Position;
-import Pieces.Piece;
-
-import java.util.ArrayList;
+import Consts.Status;
 import java.util.Scanner;
 import Consts.Color;
 
@@ -12,9 +9,7 @@ public class Player {
     private Color color;
     private final Scanner sc = new Scanner(System.in);
     private int alivePieces = 16;
-
-    //todo
-    private int status = 1;
+    private Status status = Status.ALIVE;
 
     public Player(Color color, String name) {
         this.color = color;
@@ -48,11 +43,11 @@ public class Player {
         this.alivePieces = alivePieces;
     }
 
-    public int getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

@@ -1,5 +1,6 @@
 package Game;
 import Consts.Color;
+import Consts.Status;
 import Pieces.*;
 import Board.*;
 import Player.*;
