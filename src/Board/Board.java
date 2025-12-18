@@ -53,7 +53,7 @@ public class Board {
     public void initBoard(){
         initBoxes();
         initPieces();
-        updateBoard(null);
+        updateBoard(null, Color.BLACK); //white always starts
     }
 
     private void initBoxes(){
@@ -68,8 +68,31 @@ public class Board {
         }
     }
 
-    public void updateBoard(ArrayList<Position> moves){
+    public void setBoxes(Color enemyColor){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                Box box = board[j][i];
+                box.setCanBeOccupied(false);
+                box.setState(State.FREE);
+            }
+        }
+        for (Piece piece:pieces){
+            int x = piece.getPosition().getX();
+            int y = piece.getPosition().getY();
+            board[x][y].setState(State.OCCUPIED);
+        }
+
+        ArrayList<Position> allEnemyMoves = getAllMovesFromColor(enemyColor);
+        for (Position move:allEnemyMoves){
+            int x = move.getX();
+            int y = move.getY();
+            board[x][y].setCanBeOccupied(true);
+        }
+    }
+
+    public void updateBoard(ArrayList<Position> moves, Color enemyColor){
         setPieces();
+        setBoxes(enemyColor);
         setDraws();
         drawTrail(moves);
         drawBoard();
