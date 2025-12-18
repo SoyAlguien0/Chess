@@ -121,33 +121,50 @@ public class Board {
         int newX = position.getX();
         int newY = position.getY();
 
-        if (piece instanceof King){
-            int kingX = piece.getPosition().getX();
-            int y = piece.getPosition().getY();
-            if (Math.abs(kingX-newX) > 1){
-                for (Piece p: pieces){
-                    if (p.getColor() == piece.getColor() && p instanceof Rook){
-                        int rookX = p.getPosition().getX();
-                        if (newX<kingX && rookX<newX){
-                            setPiece(p, new Position(newX+1, y));
-                            break;
-                        }else if(newX>kingX && rookX>newX){
-                            setPiece(p, new Position(newX-1, y));
-                            break;
-                        }
-                    }
-                }
-            }
+        if (checkCastling(piece, newX)){
+            setCastling(piece, newX);
         }
-        if (board[newX][newY].isOccupied()){
-            board[newX][newY].getPiece().setDead(true);
+
+        Box box = board[newX][newY];
+
+        if (box.isOccupied()){
+            killPiece(box);
         }
 
         piece.setPosition(position);
-        board[newX][newY].setPiece(piece);
         piece.setHasMoved(true);
+        box.setPiece(piece);
 
         setPieces();
+    }
+
+    public void killPiece(Box box){
+        box.getPiece().setDead(true);
+    }
+
+    public boolean checkCastling(Piece piece, int newX){
+        if (piece instanceof King){
+            int kingX = piece.getPosition().getX();
+            return Math.abs(kingX - newX) > 1;
+        }
+        return false;
+    }
+
+    public void setCastling(Piece piece, int newX){
+        for (Piece p: pieces){
+            if (p.getColor() == piece.getColor() && p instanceof Rook){
+                int kingX = piece.getPosition().getX();
+                int y = piece.getPosition().getY();
+                int rookX = p.getPosition().getX();
+                if (newX<kingX && rookX<newX){
+                    setPiece(p, new Position(newX+1, y));
+                    break;
+                }else if(newX>kingX && rookX>newX){
+                    setPiece(p, new Position(newX-1, y));
+                    break;
+                }
+            }
+        }
     }
 
     public void drawBoard(){
