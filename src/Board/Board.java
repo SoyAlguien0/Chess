@@ -107,11 +107,11 @@ public class Board {
             }
         }
         // j = x, i = y
-        for(Piece p : pieces){
-            if (!p.isDead()){
-                int pieceX = p.getPosition().getX();
-                int pieceY = p.getPosition().getY();
-                board[pieceX][pieceY].setPiece(p);
+        for(Piece piece : pieces){
+            if (!piece.isDead()){
+                int pieceX = piece.getPosition().getX();
+                int pieceY = piece.getPosition().getY();
+                board[pieceX][pieceY].setPiece(piece);
                 board[pieceX][pieceY].setState(State.OCCUPIED);
             }
         }
@@ -214,9 +214,10 @@ public class Board {
     public ArrayList<Piece> getAvailablePieces(Color playerColor){
         boolean checking = true;
         ArrayList<Piece> AvailablePieces= new ArrayList<>();
-        for(Piece p : pieces){
-            if (!p.isDead() && p.getColor() == playerColor && (!getMoves(p, checking).isEmpty() || !getKills(p, checking).isEmpty())){
-                AvailablePieces.add(p);
+        for(Piece piece : pieces){
+            if (!piece.isDead() && piece.getColor() == playerColor && (!getMovesFromPiece(piece, checking).isEmpty() ||
+                    !getKillsFromPiece(piece, checking).isEmpty())){
+                AvailablePieces.add(piece);
             }
         }
         return AvailablePieces;
@@ -224,15 +225,15 @@ public class Board {
 
     public int getAlivePieces(Color playerColor){
         int counter = 0;
-        for(Piece p : pieces){
-            if (!p.isDead() && p.getColor() == playerColor){
+        for(Piece piece : pieces){
+            if (!piece.isDead() && piece.getColor() == playerColor){
                 counter++;
             }
         }
         return counter;
     }
 
-    public ArrayList<Position> getKills(Piece piece, boolean checking){
+    public ArrayList<Position> getKillsFromPiece(Piece piece, boolean checking){
         ArrayList<ArrayList<Position>> allPossibleKills = piece.getPossibleKills(checking);
         ArrayList<Position> kills = new ArrayList<Position>();
         for (ArrayList<Position> possibleKills: allPossibleKills){
@@ -249,7 +250,7 @@ public class Board {
         return kills;
     }
 
-    public ArrayList<Position> getMoves(Piece piece, boolean checking){
+    public ArrayList<Position> getMovesFromPiece(Piece piece, boolean checking){
         ArrayList<ArrayList<Position>> allPossibleMoves = piece.getPossibleMoves(checking);
         ArrayList<Position> moves = new ArrayList<Position>();
         if (piece instanceof King){
@@ -266,8 +267,8 @@ public class Board {
         for (Piece piece:pieces){
             if (!piece.isDead() && piece.getColor() == color){
                 boolean checking = false;
-                allMoves.addAll(getMoves(piece, checking));
-                allMoves.addAll(getKills(piece, checking));
+                allMoves.addAll(getMovesFromPiece(piece, checking));
+                allMoves.addAll(getKillsFromPiece(piece, checking));
             }
         }
         return allMoves;
@@ -293,10 +294,6 @@ public class Board {
             }
         }
         return moves;
-    }
-
-    public void checkAll(){
-
     }
 
     public ArrayList<Position> checkCastling(Piece piece){
