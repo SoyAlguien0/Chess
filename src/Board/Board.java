@@ -254,7 +254,7 @@ public class Board {
         ArrayList<ArrayList<Position>> allPossibleMoves = piece.getPossibleMoves(checking);
         ArrayList<Position> moves = new ArrayList<Position>();
         if (piece instanceof King){
-            moves.addAll(checkCastling(piece));
+            moves.addAll(checkCastlingMoves(piece));
         }
         for (ArrayList<Position> possibleMoves: allPossibleMoves){
             moves.addAll(checkCollisions(possibleMoves, piece));
@@ -296,7 +296,7 @@ public class Board {
         return moves;
     }
 
-    public ArrayList<Position> checkCastling(Piece piece){
+    public ArrayList<Position> checkCastlingMoves(Piece piece){
         ArrayList<Position> moves = new ArrayList<Position>();
         for (Piece p: pieces){
             if (!p.isDead() && !p.hasMoved() && p.getColor() == piece.getColor() && p instanceof Rook){
