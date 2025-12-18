@@ -35,6 +35,7 @@ public class Game {
                         gameOver = true;
                         break;
                     }
+                    Color enemyColor = currentPlayer.getColor() == Color.WHITE ? Color.BLACK : Color.WHITE;
 
                     System.out.println("Player " + currentPlayer.getName() + " turn.");
 
@@ -63,14 +64,14 @@ public class Game {
                         if (chosenPlay == 1) {
                             playerInput = -1;
                             while (!validChose(new int[]{0, moves.size() - 1}, playerInput)) {
-                                showPossibleMoves(kills);
+                                showPossibleMoves(kills, enemyColor);
                                 playerInput = currentPlayer.choosePosition();
                             }
                             chosenPosition = kills.get(playerInput);
                         } else if (chosenPlay == 2) {
                             playerInput = -1;
                             while (!validChose(new int[]{0, moves.size() - 1}, playerInput)) {
-                                showPossibleMoves(moves);
+                                showPossibleMoves(moves, enemyColor);
                                 playerInput = currentPlayer.choosePosition();
                             }
                             chosenPosition = moves.get(playerInput);
@@ -78,21 +79,21 @@ public class Game {
                     } else if (!moves.isEmpty()) {
                         playerInput = -1;
                         while (!validChose(new int[]{0, moves.size() - 1}, playerInput)) {
-                            showPossibleMoves(moves);
+                            showPossibleMoves(moves, enemyColor);
                             playerInput = currentPlayer.choosePosition();
                         }
                         chosenPosition = moves.get(playerInput);
                     } else if (!kills.isEmpty()) {
                         playerInput = -1;
                         while (!validChose(new int[]{0, moves.size() - 1}, playerInput)) {
-                            showPossibleMoves(kills);
+                            showPossibleMoves(kills, enemyColor);
                             playerInput = currentPlayer.choosePosition();
                         }
                         chosenPosition = kills.get(playerInput);
                     }
 
                     //set the piece to a chosen position
-                    setPiece(chosenPiece, chosenPosition);
+                    setPiece(chosenPiece, chosenPosition, enemyColor);
                 }
             }
         }
@@ -105,11 +106,11 @@ public class Game {
         System.out.println("Player "+winner.getName()+" wins.");
     }
 
-    public void showPossibleMoves(ArrayList<Position> possibleMoves){
+    public void showPossibleMoves(ArrayList<Position> possibleMoves, Color enemyColor){
         if (debugMode){
-            game.updateBoard(possibleMoves);
+            game.updateBoard(possibleMoves, enemyColor);
         }else{
-            game.updateBoard(null);
+            game.updateBoard(null, enemyColor);
         }
 
         for (int i = 0; i < possibleMoves.size(); i++) {
@@ -125,9 +126,9 @@ public class Game {
         }
     }
 
-    public void setPiece(Piece chosenPiece, Position chosenPosition){
+    public void setPiece(Piece chosenPiece, Position chosenPosition, Color enemyColor){
         game.setPiece(chosenPiece ,chosenPosition);
-        game.updateBoard(null);
+        game.updateBoard(null, enemyColor);
     }
 
     public boolean validChose(int[] limits, int chose){

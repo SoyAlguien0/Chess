@@ -269,6 +269,18 @@ public class Board {
         return moves;
     }
 
+    public ArrayList<Position> getAllMovesFromColor(Color color){
+        ArrayList<Position> allMoves = new ArrayList<Position>();
+        for (Piece piece:pieces){
+            if (!piece.isDead() && piece.getColor() == color){
+                boolean checking = false;
+                allMoves.addAll(getMoves(piece, checking));
+                allMoves.addAll(getKills(piece, checking));
+            }
+        }
+        return allMoves;
+    }
+
     public ArrayList<Position> checkCollisions(ArrayList<Position> possibleMoves, Piece piece){
         ArrayList<Position> moves = new ArrayList<Position>();
         for (Position position: possibleMoves){
