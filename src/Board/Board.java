@@ -256,15 +256,7 @@ public class Board {
             moves.addAll(checkCastling(piece));
         }
         for (ArrayList<Position> possibleMoves: allPossibleMoves){
-            possibleMoves = checkCollisions(possibleMoves, piece);
-            for (Position position: possibleMoves){
-                int x = position.getX();
-                int y = position.getY();
-                Piece pieceToCheck = board[x][y].getPiece();
-                if(pieceToCheck == null){
-                    moves.add(position);
-                }
-            }
+            moves.addAll(checkCollisions(possibleMoves, piece));
         }
         return moves;
     }
