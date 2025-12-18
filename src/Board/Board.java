@@ -77,9 +77,11 @@ public class Board {
             }
         }
         for (Piece piece:pieces){
-            int x = piece.getPosition().getX();
-            int y = piece.getPosition().getY();
-            board[x][y].setState(State.OCCUPIED);
+            if (!piece.isDead()){
+                int x = piece.getPosition().getX();
+                int y = piece.getPosition().getY();
+                board[x][y].setState(State.OCCUPIED);
+            }
         }
 
         ArrayList<Position> allEnemyMoves = getAllMovesFromColor(enemyColor);
