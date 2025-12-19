@@ -42,6 +42,11 @@ public class Game {
 
                     System.out.println("Player " + currentPlayer.getName() + " turn.");
 
+                    boolean isCheck = game.isKingInCheck(getEnemyColor(currentPlayer));
+                    if (isCheck){
+                        System.out.println("Player " + currentPlayer.getName() + ", your king is in check.");
+                    }
+
                     ArrayList<Piece> availablePieces = getAvailablePieces(currentPlayer);
                     showAvailablePieces(availablePieces);
                     Piece chosenPiece = getChosenPiece(availablePieces, currentPlayer);
