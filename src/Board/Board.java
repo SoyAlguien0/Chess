@@ -272,11 +272,12 @@ public class Board {
     public ArrayList<Position> getMovesFromPiece(Piece piece, boolean checking){
         ArrayList<ArrayList<Position>> allPossibleMoves = piece.getPossibleMoves(checking);
         ArrayList<Position> moves = new ArrayList<Position>();
-        if (piece instanceof King){
-            moves.addAll(checkCastlingMoves(piece));
-        }
         for (ArrayList<Position> possibleMoves: allPossibleMoves){
             moves.addAll(checkCollisions(possibleMoves, piece));
+        }
+        if (piece instanceof King){
+            moves.addAll(getCastlingMoves(piece));
+            moves = checkOccupiedBoxes(moves);
         }
         return moves;
     }
@@ -338,5 +339,34 @@ public class Board {
             }
         }
         return moves;
+    }
+
+    public ArrayList<Position> checkOccupiedBoxes(ArrayList<Position> kingMoves){
+        ArrayList<Position> checkedMoves = new ArrayList<Position>();
+        for (Position kingMove: kingMoves){
+            int x = kingMove.getX();
+            int y = kingMove.getY();
+            if (!board[x][y].canBeOccupied()){
+                checkedMoves.add(kingMove);
+            }
+        }
+        return checkedMoves;
+    }
+
+    public boolean isKingInCheck(Color enemyColor){
+        ArrayList<Position> enemyMoves = getAllMovesFromColor(enemyColor);
+        for (Position enemyMove: enemyMoves){
+            int x = enemyMove.getX();
+            int y = enemyMove.getY();
+            Box box = board[x][y];
+            if (!board[x][y].isOccupied() && box.getPiece() instanceof King){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkStalemate(Color playerColor) {
+        return getAvailablePieces(playerColor).isEmpty();
     }
 }
