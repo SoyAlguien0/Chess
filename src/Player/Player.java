@@ -55,6 +55,10 @@ public class Player {
         return name;
     }
 
+    public boolean isDead(){
+        return this.status == Status.DEAD;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

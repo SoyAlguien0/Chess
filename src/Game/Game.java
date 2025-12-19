@@ -33,12 +33,12 @@ public class Game {
         while(!gameOver){
             if (players.length == 2){
                 for (Player currentPlayer : players) {
-                    setPlayerStatus(currentPlayer);
-                    if (isPlayerDead(currentPlayer)){
+                    setPlayerStatus(currentPlayer, currentPlayer.getColor());
+                    if (currentPlayer.isDead()){
                         gameOver = true;
                         break;
                     }
-                    Color enemyColor = currentPlayer.getColor() == Color.WHITE ? Color.BLACK : Color.WHITE;
+                    Color enemyColor = getEnemyColor(currentPlayer);
 
                     System.out.println("Player " + currentPlayer.getName() + " turn.");
 
@@ -130,10 +130,6 @@ public class Game {
         }
     }
 
-    public boolean isPlayerDead(Player currentPlayer){
-        return currentPlayer.getStatus() == Status.DEAD;
-    }
-
     public Player getWinner(){
         for (Player player:players){
             if (player.getStatus() == Status.ALIVE){
@@ -154,6 +150,10 @@ public class Game {
 
     public boolean validChose(int[] limits, int chose){
         return chose >= limits[0] && chose <= limits[1];
+    }
+
+    public Color getEnemyColor(Player currentPlayer){
+        return currentPlayer.getColor() == Color.WHITE ? Color.BLACK : Color.WHITE;
     }
 
     public ArrayList<Piece> getAvailablePieces(Player player){
