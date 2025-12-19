@@ -122,10 +122,14 @@ public class Game {
         }
     }
 
-    public void setPlayerStatus(Player currentPlayer){
+    public void setPlayerStatus(Player currentPlayer, Color playerColor){
         int alivePieces = game.getAlivePieces(currentPlayer.getColor());
         currentPlayer.setAlivePieces(alivePieces);
-        if (alivePieces <= 0) {
+        boolean isStalemate = game.checkStalemate(playerColor);
+        boolean isCheck = game.isKingInCheck(getEnemyColor(currentPlayer));
+        boolean isCheckMate = isCheck && isStalemate;
+
+        if (alivePieces <= 0 || isCheckMate || isStalemate) {
             currentPlayer.setStatus(Status.DEAD);
         }
     }
