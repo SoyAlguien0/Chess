@@ -364,6 +364,15 @@ public class Board {
         return false;
     }
 
+    public boolean kingHasMoves(){
+        for (Piece piece : pieces){
+            if (piece instanceof King){
+                return !getMovesFromPiece(piece).isEmpty();
+            }
+        }
+        return false;
+    }
+
     public boolean checkStalemate(Color playerColor) {
         return getAvailablePieces(playerColor).isEmpty();
     }
