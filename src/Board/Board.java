@@ -231,7 +231,6 @@ public class Board {
     }
 
     public ArrayList<Piece> getAvailablePieces(Color playerColor){
-        boolean checking = true;
         ArrayList<Piece> AvailablePieces= new ArrayList<>();
         for(Piece piece : pieces){
             if (!piece.isDead() && piece.getColor() == playerColor && (!getMovesFromPiece(piece).isEmpty() ||
@@ -315,7 +314,7 @@ public class Board {
         return moves;
     }
 
-    public ArrayList<Position> checkCastlingMoves(Piece piece){
+    public ArrayList<Position> getCastlingMoves(Piece piece){
         ArrayList<Position> moves = new ArrayList<Position>();
         for (Piece p: pieces){
             if (!p.isDead() && !p.hasMoved() && p.getColor() == piece.getColor() && p instanceof Rook){
