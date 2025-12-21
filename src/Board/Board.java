@@ -357,7 +357,7 @@ public class Board {
             int x = enemyMove.getX();
             int y = enemyMove.getY();
             Box box = board[x][y];
-            if (!board[x][y].isOccupied() && box.getPiece() instanceof King){
+            if (board[x][y].isOccupied() && box.getPiece() instanceof King){
                 return true;
             }
         }
