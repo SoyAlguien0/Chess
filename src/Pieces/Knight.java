@@ -25,7 +25,7 @@ public class Knight extends Piece{
     }
 
     @Override
-    public ArrayList<ArrayList<Position>> getPossibleMoves(boolean checking){
+    public ArrayList<ArrayList<Position>> getPossibleMoves(){
         Position position = this.position;
         ArrayList<Position> possibleMoves = new ArrayList<>();
         ArrayList<ArrayList<Position>> allPossibleMoves = new ArrayList<ArrayList<Position>>();

@@ -234,8 +234,8 @@ public class Board {
         boolean checking = true;
         ArrayList<Piece> AvailablePieces= new ArrayList<>();
         for(Piece piece : pieces){
-            if (!piece.isDead() && piece.getColor() == playerColor && (!getMovesFromPiece(piece, checking).isEmpty() ||
-                    !getKillsFromPiece(piece, checking).isEmpty())){
+            if (!piece.isDead() && piece.getColor() == playerColor && (!getMovesFromPiece(piece).isEmpty() ||
+                    !getKillsFromPiece(piece).isEmpty())){
                 AvailablePieces.add(piece);
             }
         }
@@ -252,8 +252,8 @@ public class Board {
         return counter;
     }
 
-    public ArrayList<Position> getKillsFromPiece(Piece piece, boolean checking){
-        ArrayList<ArrayList<Position>> allPossibleKills = piece.getPossibleKills(checking);
+    public ArrayList<Position> getKillsFromPiece(Piece piece){
+        ArrayList<ArrayList<Position>> allPossibleKills = piece.getPossibleKills();
         ArrayList<Position> kills = new ArrayList<Position>();
         for (ArrayList<Position> possibleKills: allPossibleKills){
             possibleKills = checkCollisions(possibleKills, piece);
@@ -269,8 +269,8 @@ public class Board {
         return kills;
     }
 
-    public ArrayList<Position> getMovesFromPiece(Piece piece, boolean checking){
-        ArrayList<ArrayList<Position>> allPossibleMoves = piece.getPossibleMoves(checking);
+    public ArrayList<Position> getMovesFromPiece(Piece piece){
+        ArrayList<ArrayList<Position>> allPossibleMoves = piece.getPossibleMoves();
         ArrayList<Position> moves = new ArrayList<Position>();
         for (ArrayList<Position> possibleMoves: allPossibleMoves){
             moves.addAll(checkCollisions(possibleMoves, piece));
@@ -286,9 +286,8 @@ public class Board {
         ArrayList<Position> allMoves = new ArrayList<Position>();
         for (Piece piece:pieces){
             if (!piece.isDead() && piece.getColor() == color){
-                boolean checking = false;
-                allMoves.addAll(getMovesFromPiece(piece, checking));
-                allMoves.addAll(getKillsFromPiece(piece, checking));
+                allMoves.addAll(getMovesFromPiece(piece));
+                allMoves.addAll(getKillsFromPiece(piece));
             }
         }
         return allMoves;

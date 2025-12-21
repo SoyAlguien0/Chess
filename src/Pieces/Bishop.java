@@ -12,7 +12,7 @@ public class Bishop extends Piece{
     }
 
     @Override
-    public ArrayList<ArrayList<Position>> getPossibleMoves(boolean checking) {
+    public ArrayList<ArrayList<Position>> getPossibleMoves() {
         ArrayList<Position> possibleMovesXY = new ArrayList<Position>();
         ArrayList<Position> possibleMovesNXNY = new ArrayList<Position>();
         ArrayList<Position> possibleMovesXNY = new ArrayList<Position>();

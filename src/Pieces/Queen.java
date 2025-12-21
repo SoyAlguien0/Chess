@@ -12,7 +12,7 @@ public class Queen extends Piece{
     }
 
     @Override
-    public ArrayList<ArrayList<Position>> getPossibleMoves(boolean checking) {
+    public ArrayList<ArrayList<Position>> getPossibleMoves() {
         ArrayList<Position> possibleMovesX = new ArrayList<Position>();
         ArrayList<Position> possibleMovesNX = new ArrayList<Position>();
         ArrayList<Position> possibleMovesY = new ArrayList<Position>();

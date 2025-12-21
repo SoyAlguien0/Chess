@@ -14,7 +14,7 @@ public class King extends Piece{
     }
 
     @Override
-    public ArrayList<ArrayList<Position>> getPossibleMoves(boolean checking){
+    public ArrayList<ArrayList<Position>> getPossibleMoves(){
         int x = this.position.getX();
         int y = this.position.getY();
         ArrayList<Position> possibleMoves = new ArrayList<>();

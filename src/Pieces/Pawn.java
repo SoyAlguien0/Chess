@@ -22,44 +22,32 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public ArrayList<ArrayList<Position>> getPossibleMoves(boolean checking){
+    public ArrayList<ArrayList<Position>> getPossibleMoves(){
         Position pos = this.position;
         ArrayList<Position> possibleMoves = new ArrayList<>();
         ArrayList<ArrayList<Position>> allPossibleMoves = new ArrayList<ArrayList<Position>>();
         if (!hasMoved){
             for (Position possibleDir: possibleDirs){
                 possibleMoves.add(pos.sumPosition(possibleDir));
-                if(checking){
-                    allPossibleMoves.add(possibleMoves);
-                    return allPossibleMoves;
-                }
             }
         }
         else if (hasMoved
                 && super.validMove(pos.sumPosition(possibleDirs[0])))
         {
             possibleMoves.add(pos.sumPosition(possibleDirs[0]));
-            if(checking){
-                allPossibleMoves.add(possibleMoves);
-                return allPossibleMoves;
-            }
         }
         allPossibleMoves.add(possibleMoves);
         return  allPossibleMoves;
     }
 
     @Override
-    public ArrayList<ArrayList<Position>> getPossibleKills(boolean checking){
+    public ArrayList<ArrayList<Position>> getPossibleKills(){
         Position pos = this.position;
         ArrayList<Position> possibleKills = new ArrayList<>();
         ArrayList<ArrayList<Position>> allPossibleKills = new ArrayList<ArrayList<Position>>();
         for (Position possibleKillDir : possibleKillDirs) {
             if (super.validMove(pos.sumPosition(possibleKillDir))) {
                 possibleKills.add(pos.sumPosition(possibleKillDir));
-                if (checking) {
-                    allPossibleKills.add(possibleKills);
-                    return allPossibleKills;
-                }
             }
         }
         allPossibleKills.add(possibleKills);

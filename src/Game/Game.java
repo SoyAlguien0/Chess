@@ -70,9 +70,8 @@ public class Game {
     }
 
     public Position getChosenPosition(Piece chosenPiece, Player currentPlayer, Color enemyColor){
-        boolean checking = true;
-        ArrayList<Position> moves = game.getMovesFromPiece(chosenPiece, !checking);
-        ArrayList<Position> kills = game.getKillsFromPiece(chosenPiece, !checking);
+        ArrayList<Position> moves = game.getMovesFromPiece(chosenPiece);
+        ArrayList<Position> kills = game.getKillsFromPiece(chosenPiece);
         if (!moves.isEmpty() && !kills.isEmpty()) {
             int chosenPlay = -1;
             while (!validChose(new int[]{1, 2}, chosenPlay)) {
@@ -127,7 +126,8 @@ public class Game {
         currentPlayer.setAlivePieces(alivePieces);
         boolean isStalemate = game.checkStalemate(playerColor);
         boolean isCheck = game.isKingInCheck(getEnemyColor(currentPlayer));
-        boolean isCheckMate = isCheck && isStalemate;
+        boolean kingHasMoves = game.kingHasMoves();
+        boolean isCheckMate = (isCheck && isStalemate) || (isCheck && !kingHasMoves);
 
         if (alivePieces <= 0 || isCheckMate || isStalemate) {
             currentPlayer.setStatus(Status.DEAD);
