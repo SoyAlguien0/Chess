@@ -126,7 +126,7 @@ public class Game {
         currentPlayer.setAlivePieces(alivePieces);
         boolean isStalemate = game.checkStalemate(playerColor);
         boolean isCheck = game.isKingInCheck(getEnemyColor(currentPlayer));
-        boolean kingHasMoves = game.kingHasMoves();
+        boolean kingHasMoves = game.kingHasMoves(playerColor);
         boolean isCheckMate = (isCheck && isStalemate) || (isCheck && !kingHasMoves);
 
         if (alivePieces <= 0 || isCheckMate || isStalemate) {

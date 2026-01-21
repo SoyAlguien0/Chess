@@ -154,7 +154,7 @@ public class Board {
 
     public void setCastling(Piece piece, int newX){
         for (Piece p: pieces){
-            if (p.getColor() == piece.getColor() && p instanceof Rook){
+            if (p.getColor().equals(piece.getColor()) && p instanceof Rook){
                 int kingX = piece.getPosition().getX();
                 int y = piece.getPosition().getY();
                 int rookX = p.getPosition().getX();
@@ -284,7 +284,7 @@ public class Board {
     public ArrayList<Position> getAllMovesFromColor(Color color){
         ArrayList<Position> allMoves = new ArrayList<Position>();
         for (Piece piece:pieces){
-            if (!piece.isDead() && piece.getColor() == color){
+            if (!piece.isDead() && piece.getColor().equals(color)){
                 allMoves.addAll(getMovesFromPiece(piece));
                 allMoves.addAll(getKillsFromPiece(piece));
             }
@@ -317,7 +317,7 @@ public class Board {
     public ArrayList<Position> getCastlingMoves(Piece piece){
         ArrayList<Position> moves = new ArrayList<Position>();
         for (Piece p: pieces){
-            if (!p.isDead() && !p.hasMoved() && p.getColor() == piece.getColor() && p instanceof Rook){
+            if (!p.isDead() && !p.hasMoved() && p.getColor().equals(piece.getColor()) && p instanceof Rook){
                 int kingX = piece.getPosition().getX();
                 int y = piece.getPosition().getY(); //it will be at the same level 100%
                 int rookX = p.getPosition().getX();
@@ -364,9 +364,9 @@ public class Board {
         return false;
     }
 
-    public boolean kingHasMoves(){
+    public boolean kingHasMoves(Color playerColor){
         for (Piece piece : pieces){
-            if (piece instanceof King){
+            if (piece.getColor().equals(playerColor) && piece instanceof King){
                 return !getMovesFromPiece(piece).isEmpty();
             }
         }
