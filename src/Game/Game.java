@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Game {
     private Player[] players;
     private final boolean debugMode = true;
-    Board game = new Board(debugMode);
+    Board game = new Board(debugMode, Color.BLACK); //white starts so the enemy color is black
 
     public Game(int numPlayers) {
         players = new Player[numPlayers];
@@ -42,7 +42,7 @@ public class Game {
 
                     System.out.println("Player " + currentPlayer.getName() + " turn.");
 
-                    boolean isCheck = game.isKingInCheck(getEnemyColor(currentPlayer));
+                    boolean isCheck = game.isKingInCheck();
                     if (isCheck){
                         System.out.println("Player " + currentPlayer.getName() + ", your king is in check.");
                     }
@@ -53,6 +53,7 @@ public class Game {
 
                     Position chosenPosition = getChosenPosition(chosenPiece, currentPlayer, enemyColor);
                     setPiece(chosenPiece, chosenPosition, enemyColor);
+                    game.setEnemyColor(currentPlayer.getColor());
                 }
             }
         }
@@ -103,9 +104,9 @@ public class Game {
 
     public void showPossibleMoves(ArrayList<Position> possibleMoves, Color enemyColor){
         if (debugMode){
-            game.updateBoard(possibleMoves, enemyColor);
+            game.updateBoard(possibleMoves);
         }else{
-            game.updateBoard(null, enemyColor);
+            game.updateBoard(null);
         }
 
         for (int i = 0; i < possibleMoves.size(); i++) {
@@ -125,7 +126,7 @@ public class Game {
         int alivePieces = game.getAlivePieces(currentPlayer.getColor());
         currentPlayer.setAlivePieces(alivePieces);
         boolean isStalemate = game.checkStalemate(playerColor);
-        boolean isCheck = game.isKingInCheck(getEnemyColor(currentPlayer));
+        boolean isCheck = game.isKingInCheck();
         boolean kingHasMoves = game.kingHasMoves(playerColor);
         boolean isCheckMate = (isCheck && isStalemate) || (isCheck && !kingHasMoves);
 
@@ -149,7 +150,7 @@ public class Game {
 
     public void setPiece(Piece chosenPiece, Position chosenPosition, Color enemyColor){
         game.setPiece(chosenPiece ,chosenPosition);
-        game.updateBoard(null, enemyColor);
+        game.updateBoard(null);
     }
 
     public boolean validChose(int[] limits, int chose){

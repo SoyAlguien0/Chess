@@ -8,9 +8,11 @@ public class Board {
     private final Box[][] board = new Box[8][8];
     private final ArrayList<Piece> pieces = new ArrayList<>();
     private boolean debugMode;
+    private Color enemyColor;
 
-    public Board(boolean debugMode){
+    public Board(boolean debugMode, Color enemyColor){
         this.debugMode = debugMode;
+        this.enemyColor = enemyColor;
     }
 
     private void initPieces() {
@@ -53,7 +55,7 @@ public class Board {
     public void initBoard(){
         initBoxes();
         initPieces();
-        updateBoard(null, Color.BLACK); //white always starts
+        updateBoard(null);
     }
 
     private void initBoxes(){
@@ -68,7 +70,7 @@ public class Board {
         }
     }
 
-    public void setBoxes(Color enemyColor){
+    public void setBoxes(){
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 Box box = board[j][i];
@@ -92,9 +94,9 @@ public class Board {
         }
     }
 
-    public void updateBoard(ArrayList<Position> moves, Color enemyColor){
+    public void updateBoard(ArrayList<Position> moves){
         setPieces();
-        setBoxes(enemyColor);
+        setBoxes();
         setDraws();
         drawTrail(moves);
         drawBoard();
@@ -345,13 +347,14 @@ public class Board {
             int x = kingMove.getX();
             int y = kingMove.getY();
             if (!board[x][y].canBeOccupied()){
+
                 checkedMoves.add(kingMove);
             }
         }
         return checkedMoves;
     }
 
-    public boolean isKingInCheck(Color enemyColor){
+    public boolean isKingInCheck(){
         ArrayList<Position> enemyMoves = getAllMovesFromColor(enemyColor);
         for (Position enemyMove: enemyMoves){
             int x = enemyMove.getX();
@@ -375,5 +378,13 @@ public class Board {
 
     public boolean checkStalemate(Color playerColor) {
         return getAvailablePieces(playerColor).isEmpty();
+    }
+
+    public Color getEnemyColor() {
+        return enemyColor;
+    }
+
+    public void setEnemyColor(Color enemyColor) {
+        this.enemyColor = enemyColor;
     }
 }
