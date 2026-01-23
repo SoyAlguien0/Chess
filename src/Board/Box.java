@@ -58,4 +58,15 @@ public class Box {
     public boolean isOccupied(){
         return state == State.OCCUPIED;
     }
+
+    @Override
+    public String toString() {
+        return "Box{" +
+                "piece=" + piece +
+                ", color=" + color +
+                ", draw=" + draw +
+                ", state=" + state +
+                ", canBeOccupied=" + canBeOccupied +
+                '}';
+    }
 }
