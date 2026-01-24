@@ -97,7 +97,6 @@ public class Board {
     }
 
     public void updateBoard(ArrayList<Position> moves){
-        setPieces();
         setBoxes();
         setDraws();
         drawTrail(moves);
