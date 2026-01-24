@@ -314,7 +314,7 @@ public class Board {
                     if (board[x][y].isOccupied()){
                         break;
                     }
-                    if ((queenSideCastling && i>=2 )||(!queenSideCastling && i>=3)){
+                    if ((queenSideCastling && i>2 )||(!queenSideCastling && i>3)){
                         break;
                     }
                     if (i == Math.abs(rookX-kingX)-1){
