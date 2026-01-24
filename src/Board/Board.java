@@ -314,6 +314,9 @@ public class Board {
                     if (board[x][y].isOccupied()){
                         break;
                     }
+                    if ((queenSideCastling && i>=2 )||(!queenSideCastling && i>=3)){
+                        break;
+                    }
                     if (i == Math.abs(rookX-kingX)-1){
                         //end of the for
                         x = queenSideCastling ? kingX-2 : kingX+2;
