@@ -52,8 +52,7 @@ public class Game {
                     Piece chosenPiece = getChosenPiece(availablePieces, currentPlayer);
 
                     Position chosenPosition = getChosenPosition(chosenPiece, currentPlayer, enemyColor);
-                    setPiece(chosenPiece, chosenPosition, enemyColor);
-                    game.setEnemyColor(currentPlayer.getColor());
+                    setPiece(chosenPiece, chosenPosition, currentPlayer.getColor());
                 }
             }
         }
@@ -148,8 +147,9 @@ public class Game {
         System.out.println("Player "+winner.getName()+" wins.");
     }
 
-    public void setPiece(Piece chosenPiece, Position chosenPosition, Color enemyColor){
+    public void setPiece(Piece chosenPiece, Position chosenPosition, Color currentPlayerColor){
         game.setPiece(chosenPiece ,chosenPosition);
+        game.setEnemyColor(currentPlayerColor);
         game.updateBoard(null);
     }
 
