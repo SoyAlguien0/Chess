@@ -76,6 +76,7 @@ public class Board {
                 Box box = board[j][i];
                 box.setCanBeOccupied(false);
                 box.setState(State.FREE);
+                box.setPiece(null);
             }
         }
         for (Piece piece:pieces){
@@ -83,6 +84,7 @@ public class Board {
                 int x = piece.getPosition().getX();
                 int y = piece.getPosition().getY();
                 board[x][y].setState(State.OCCUPIED);
+                board[x][y].setPiece(piece);
             }
         }
 
@@ -102,24 +104,6 @@ public class Board {
         drawBoard();
     }
 
-    public void setPieces(){
-        //Assign every box it's piece
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board.length; j++){
-                board[j][i].setPiece(null);
-                board[j][i].setState(State.FREE);
-            }
-        }
-        // j = x, i = y
-        for(Piece piece : pieces){
-            if (!piece.isDead()){
-                int pieceX = piece.getPosition().getX();
-                int pieceY = piece.getPosition().getY();
-                board[pieceX][pieceY].setPiece(piece);
-                board[pieceX][pieceY].setState(State.OCCUPIED);
-            }
-        }
-    }
 
     public void setPiece(Piece piece, Position position){
         int newX = position.getX();
