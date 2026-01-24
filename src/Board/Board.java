@@ -262,7 +262,7 @@ public class Board {
         }
         if (piece instanceof King){
             moves.addAll(getCastlingMoves(piece));
-            moves = checkOccupiedBoxes(moves);
+            moves = checkOccupiedBoxes(moves, piece);
         }
         return moves;
     }
@@ -325,16 +325,26 @@ public class Board {
         return moves;
     }
 
-    public ArrayList<Position> checkOccupiedBoxes(ArrayList<Position> kingMoves){
+    public ArrayList<Position> checkOccupiedBoxes(ArrayList<Position> kingMoves, Piece king){
+        Position originalPosition = king.getPosition();
         ArrayList<Position> checkedMoves = new ArrayList<Position>();
         for (Position kingMove: kingMoves){
             int x = kingMove.getX();
             int y = kingMove.getY();
             if (!board[x][y].canBeOccupied()){
-
-                checkedMoves.add(kingMove);
+                if (!king.getColor().equals(enemyColor)){
+                    emulateSetPiece(king, kingMove);
+                    if (!board[x][y].canBeOccupied()){
+                        emulateSetPiece(king, originalPosition);
+                        checkedMoves.add(kingMove);
+                    }
+                    emulateSetPiece(king, originalPosition);
+                }else{
+                    checkedMoves.add(kingMove);
+                }
             }
         }
+        king.setPosition(originalPosition);
         return checkedMoves;
     }
 
