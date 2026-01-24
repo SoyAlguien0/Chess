@@ -87,7 +87,6 @@ public class Board {
                 board[x][y].setPiece(piece);
             }
         }
-
         ArrayList<Position> allEnemyMoves = getAllMovesFromColor(enemyColor);
         for (Position move:allEnemyMoves){
             int x = move.getX();
@@ -120,9 +119,11 @@ public class Board {
 
         piece.setPosition(position);
         piece.setHasMoved(true);
-        box.setPiece(piece);
+    }
 
-        setPieces();
+    public void emulateSetPiece(Piece piece, Position position){
+        piece.setPosition(position);
+        setBoxes();
     }
 
     public void killPiece(Box box){
