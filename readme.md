@@ -34,5 +34,5 @@ For this reason, it is necessary to run the program in a **terminal that correct
 ```
 git clone https://github.com/SoyAlguien0/Chess
 cd ./dist
-java -jar Chess.jar
+java -jar Chess-{version}.jar
 ```
