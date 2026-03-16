@@ -9,6 +9,7 @@ public class Rook extends Piece{
     public Rook(Position position, Color color){
         super(position,color);
         this.name = super.getDrawName('♜');
+        this.gameName = "Rook";
     }
 
     @Override

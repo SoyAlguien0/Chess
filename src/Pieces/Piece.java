@@ -8,6 +8,7 @@ public abstract class Piece {
     protected Position position;
     protected Color color;
     protected char name;
+    protected String gameName;
     protected int direction ;
     protected boolean hasMoved = false;
     protected boolean hasVariousTargets = false;
@@ -69,6 +70,14 @@ public abstract class Piece {
 
     public boolean isDead() {
         return isDead;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public String getGameName() {
+        return gameName;
     }
 
     public void setDead(boolean dead) {

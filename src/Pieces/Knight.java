@@ -11,6 +11,7 @@ public class Knight extends Piece{
     public Knight(Position position, Color color){
         super(position,color);
         this.name = super.getDrawName('♞');
+        this.gameName = "Knight";
         this.hasVariousTargets = true;
         this.possibleDirs = new Position[]{
                 new Position(-1, -2),

@@ -11,6 +11,7 @@ public class Pawn extends Piece {
     public Pawn(Position position, Color color){
         super(position,color);
         this.name = super.getDrawName('♟');
+        this.gameName = "Pawn";
         this.possibleDirs = new Position[]{
                 new Position(0, 1*this.direction),
                 new Position(0, 2*this.direction)
