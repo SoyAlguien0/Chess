@@ -5,6 +5,7 @@ import Pieces.*;
 import Board.*;
 import Player.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
     private Player[] players;
@@ -53,6 +54,14 @@ public class Game {
 
                     Position chosenPosition = getChosenPosition(chosenPiece, currentPlayer, enemyColor);
                     setPiece(chosenPiece, chosenPosition, currentPlayer.getColor());
+
+                    if (chosenPiece instanceof Pawn) {
+                        boolean pawnCanPromote = game.checkPromotion((Pawn) chosenPiece);
+                        if (pawnCanPromote) {
+                            game.promotePawn((Pawn) chosenPiece, getChosePieceToPromote(currentPlayer));
+                            game.updateBoard(null);
+                        }
+                    }
                 }
             }
         }
@@ -62,11 +71,29 @@ public class Game {
 
     public Position getPositionByInput(ArrayList<Position> moves, Player currentPlayer, Color enemyColor){
         int playerInput = -1;
-        while (!validChose(new int[]{0, moves.size() - 1}, playerInput)) {
+        while (!isValidChose(new int[]{0, moves.size() - 1}, playerInput)) {
             showPossibleMoves(moves, enemyColor);
             playerInput = currentPlayer.choosePosition();
         }
         return moves.get(playerInput);
+    }
+
+    public Piece getChosePieceToPromote(Player currentPlayer) {
+        ArrayList<Piece> availablePieces = new ArrayList<>(List.of(
+                new Queen(null, currentPlayer.getColor()),
+                new Knight(null, currentPlayer.getColor()),
+                new Bishop(null, currentPlayer.getColor()),
+                new Rook(null, currentPlayer.getColor())
+        ));
+        int chosenPiecePosition = -1;
+        String[] pieceNames = new String[availablePieces.toArray().length];
+        for (int i = 0; i < availablePieces.toArray().length; i++) {
+            pieceNames[i] = availablePieces.get(i).getGameName();
+        }
+        while (!isValidChose(new int[]{0, 3}, chosenPiecePosition)) {
+            chosenPiecePosition = currentPlayer.choosePromotion(pieceNames);
+        }
+        return availablePieces.get(chosenPiecePosition);
     }
 
     public Position getChosenPosition(Piece chosenPiece, Player currentPlayer, Color enemyColor){
@@ -74,7 +101,7 @@ public class Game {
         ArrayList<Position> kills = game.getKillsFromPiece(chosenPiece);
         if (!moves.isEmpty() && !kills.isEmpty()) {
             int chosenPlay = -1;
-            while (!validChose(new int[]{1, 2}, chosenPlay)) {
+            while (!isValidChose(new int[]{1, 2}, chosenPlay)) {
                 System.out.println("1. Kills\n" +
                         "2. moves ");
                 chosenPlay = currentPlayer.choosePlay();
@@ -95,7 +122,7 @@ public class Game {
 
     public Piece getChosenPiece(ArrayList<Piece> availablePieces, Player currentPlayer){
         int playerInput = -1;
-        while (!validChose(new int[]{0, availablePieces.size() - 1}, playerInput)) {
+        while (!isValidChose(new int[]{0, availablePieces.size() - 1}, playerInput)) {
             playerInput = currentPlayer.choosePiece();
         }
         return availablePieces.get(playerInput);

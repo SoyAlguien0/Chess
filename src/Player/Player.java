@@ -26,6 +26,14 @@ public class Player {
         return sc.nextInt()-1;
     }
 
+    public int choosePromotion(String[] pieceNames){
+        System.out.println("Choose a piece to promote your pawn: ");
+        for (int i = 0; i < pieceNames.length; i++) {
+            System.out.println((i+1)+". "+pieceNames[i]);
+        }
+        return sc.nextInt()-1;
+    }
+
     public int choosePlay(){
         System.out.print("Choose the play: ");
         return sc.nextInt();

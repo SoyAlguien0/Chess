@@ -169,16 +169,7 @@ public class Board {
                 }else{
                     if (i != 0 && j != 0) {
                         Box box = board[j-1][i-1];
-                        if(box.isOccupied()){
-                            System.out.print("\t"+box.getDraw());
-                        }else{
-                            //For the future
-                            if(box.getColor() == 0){
-                                System.out.print("\t"+box.getDraw());
-                            }else {
-                                System.out.print("\t"+box.getDraw());
-                            }
-                        }
+                        System.out.print("\t"+box.getDraw());
                     }else System.out.print("\t"); //0, 0
                 }
             }
@@ -378,6 +369,19 @@ public class Board {
 
     public boolean checkStalemate(Color playerColor) {
         return getAvailablePieces(playerColor).isEmpty();
+    }
+
+    public boolean checkPromotion(Pawn pawn) {
+        return pawn.getPosition().getY() == (pawn.getDirection() == 1 ? 7 : 0);
+    }
+
+    public void promotePawn(Pawn pawn, Piece pieceToPromote) {
+        setBoxes();
+        pieceToPromote.setPosition(pawn.getPosition());
+        pieceToPromote.setColor(pawn.getColor());
+        pawn.setPromotedTo(pieceToPromote);
+        board[pawn.getPosition().getX()][pawn.getPosition().getY()].getPiece().setDead(true);
+        pieces.add(pieceToPromote);
     }
 
     public Color getEnemyColor() {

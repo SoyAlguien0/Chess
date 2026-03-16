@@ -7,6 +7,7 @@ import Consts.Color;
 public class Pawn extends Piece {
     final private Position[] possibleKillDirs;
     final private Position[] possibleDirs;
+    Piece promotedTo;
 
     public Pawn(Position position, Color color){
         super(position,color);
@@ -29,7 +30,9 @@ public class Pawn extends Piece {
         ArrayList<ArrayList<Position>> allPossibleMoves = new ArrayList<ArrayList<Position>>();
         if (!hasMoved){
             for (Position possibleDir: possibleDirs){
-                possibleMoves.add(pos.sumPosition(possibleDir));
+                if (super.validMove(pos.sumPosition(possibleDir))) {
+                    possibleMoves.add(pos.sumPosition(possibleDir));
+                }
             }
         }
         else if (hasMoved
@@ -53,5 +56,17 @@ public class Pawn extends Piece {
         }
         allPossibleKills.add(possibleKills);
         return  allPossibleKills;
+    }
+
+    public Piece getPromotedTo() {
+        return promotedTo;
+    }
+
+    public void setPromotedTo(Piece promotedTo) {
+        this.promotedTo = promotedTo;
+    }
+
+    public boolean isPromoted() {
+        return  promotedTo != null;
     }
 }
