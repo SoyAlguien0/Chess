@@ -15,6 +15,9 @@ public class Board {
         this.enemyColor = enemyColor;
     }
 
+    //todo: make only possible to move the king if he is in check
+    //todo: replace magic numbers
+
     private void initPieces() {
         // Initializing one by one for better debugging
         pieces.add(new Rook(new Position(0, 7), Color.WHITE));

@@ -153,7 +153,8 @@ public class Game {
         game.updateBoard(null);
     }
 
-    public boolean validChose(int[] limits, int chose){
+    //todo: pass the parms as ints and not an array lol
+    public boolean isValidChose(int[] limits, int chose){
         return chose >= limits[0] && chose <= limits[1];
     }
 
